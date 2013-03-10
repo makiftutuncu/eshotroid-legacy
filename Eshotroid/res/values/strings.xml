@@ -9,5 +9,6 @@
     <string name="selectedLine">Seçilen Hat</string>
     <string name="pleaseWait">Lütfen Bekleyin</string>
     <string name="connecting">Bağlanılıyor#8230;</string>
+    <string name="selectLineFirst">Lütfen önce bir hat seçin.</string>
 
 </resources>

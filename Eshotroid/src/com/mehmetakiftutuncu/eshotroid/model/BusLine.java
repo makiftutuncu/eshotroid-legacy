@@ -1,5 +1,7 @@
 package com.mehmetakiftutuncu.eshotroid.model;
 
+import com.mehmetakiftutuncu.eshotroid.Constants;
+
 /**
  * A model class for a bus line
  * 
@@ -39,6 +41,6 @@ public class BusLine
 	@Override
 	public String toString()
 	{
-		return String.format("%s / %s", getNumber(), getName());
+		return String.format("%s%s%s", getNumber(), Constants.BUS_LINE_SEPERATOR, getName());
 	}
 }

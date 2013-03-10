@@ -3,10 +3,13 @@ package com.mehmetakiftutuncu.eshotroid;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -29,6 +32,9 @@ public class Main extends Activity implements OnClickListener
 	private Button bSunday;
 	private ListView lBusLines;
 	private TextView tSelectedLine;
+	
+	private String selectedLine;
+	private String selectedLineFull;
 	
 	/**
 	 * Tag for debugging
@@ -61,6 +67,17 @@ public class Main extends Activity implements OnClickListener
 				}
 				
 				lBusLines.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lineTexts));
+				lBusLines.setOnItemClickListener(new OnItemClickListener()
+				{
+					@Override
+					public void onItemClick(AdapterView<?> adapter, View view, int index, long id)
+					{
+						TextView t = (TextView) view;
+						selectedLineFull = t.getText().toString();
+						selectedLine = selectedLineFull.split(Constants.BUS_LINE_SEPERATOR)[0];
+						tSelectedLine.setText(getString(R.string.selectedLine) + ": " + selectedLine);
+					}
+				});
 			}
 		}
 		catch(Exception e)
@@ -71,29 +88,47 @@ public class Main extends Activity implements OnClickListener
 	
 	private void initialize()
 	{
-		bWeekDay = (Button) findViewById(R.id.button_weekDays);
-		bSaturday = (Button) findViewById(R.id.button_saturday);
-		bSunday = (Button) findViewById(R.id.button_sunday);
-		lBusLines = (ListView) findViewById(R.id.listView_busLines);
-		tSelectedLine = (TextView) findViewById(R.id.textView_selectedLine);
+		bWeekDay = (Button) findViewById(R.id.main_button_weekDays);
+		bSaturday = (Button) findViewById(R.id.main_button_saturday);
+		bSunday = (Button) findViewById(R.id.main_button_sunday);
+		lBusLines = (ListView) findViewById(R.id.main_listView_busLines);
+		tSelectedLine = (TextView) findViewById(R.id.main_textView_selectedLine);
 		
 		bWeekDay.setOnClickListener(this);
 		bSaturday.setOnClickListener(this);
 		bSunday.setOnClickListener(this);
 	}
+	
+	private void getLineInformation(String type, String line, String info)
+	{
+		Intent intent = new Intent(this, Times.class);
+		intent.putExtra(Constants.TYPE_EXTRA, type);
+		intent.putExtra(Constants.LINE_EXTRA, line);
+		intent.putExtra(Constants.FULL_INFO_EXTRA, info);
+		startActivity(intent);
+	}
 
 	@Override
 	public void onClick(View v)
 	{
+		if(selectedLine == null)
+		{
+			Toast.makeText(this, getString(R.string.selectLineFirst), Toast.LENGTH_SHORT).show();
+			
+			return;
+		}
 		switch(v.getId())
 		{
-			case R.id.button_weekDays:
+			case R.id.main_button_weekDays:
+				getLineInformation("H", selectedLine, selectedLineFull);
 				break;
 
-			case R.id.button_saturday:
+			case R.id.main_button_saturday:
+				getLineInformation("C", selectedLine, selectedLineFull);
 				break;
 
-			case R.id.button_sunday:
+			case R.id.main_button_sunday:
+				getLineInformation("P", selectedLine, selectedLineFull);
 				break;
 		}
 	}

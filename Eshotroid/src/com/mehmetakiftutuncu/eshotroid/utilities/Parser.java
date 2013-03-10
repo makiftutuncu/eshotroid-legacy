@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.mehmetakiftutuncu.eshotroid.Constants;
 import com.mehmetakiftutuncu.eshotroid.model.BusLine;
+import com.mehmetakiftutuncu.eshotroid.model.BusLineTimes;
+import com.mehmetakiftutuncu.eshotroid.model.BusTime;
 
 
 /**
@@ -18,6 +20,13 @@ public class Parser
 	 */
 	public static final String LOG_TAG = "Eshotroid_Parser";
 	
+	/**
+	 * Gets the list of bus lines from web page
+	 * 
+	 * @param page Contents of web page
+	 * 
+	 * @return List of bus lines
+	 */
 	public static ArrayList<BusLine> getBusLines(String page)
 	{
 		ArrayList<BusLine> lines = new ArrayList<BusLine>();
@@ -37,6 +46,9 @@ public class Parser
 					line = line.substring(offset);
 					
 					String[] temp = line.split(Constants.BUS_LINE_SEPERATOR);
+					
+					temp[0] = fixTurkishHtmlEntityCharacters(temp[0]);
+					temp[1] = fixTurkishHtmlEntityCharacters(temp[1]);
 					
 					BusLine busLine = new BusLine(temp[0], temp[1]);
 					
@@ -58,5 +70,48 @@ public class Parser
 		}
 		
 		return lines;
+	}
+	
+	/**
+	 * Gets the times of a bus from its web page
+	 * 
+	 * @param page Contents of web page
+	 * 
+	 * @return Times of a bus line
+	 */
+	public static BusLineTimes getBusLineTimes(BusLine line, String page)
+	{
+		ArrayList<BusTime> times = new ArrayList<BusTime>();
+		
+		
+		
+		return new BusLineTimes(line, times);
+	}
+	
+	/**
+	 * Replaces all HTML entity characters in Turkish
+	 * 
+	 * @param source Source string
+	 * 
+	 * @return Source string with fixed Turkish characters
+	 */
+	public static String fixTurkishHtmlEntityCharacters(String source)
+	{
+		String result = source;
+		
+		result = result.replaceAll("&#304;", "İ");
+		result = result.replaceAll("&#305;", "ı");
+		result = result.replaceAll("&#214;", "Ö");
+		result = result.replaceAll("&#246;", "ö");
+		result = result.replaceAll("&#220;", "Ü");
+		result = result.replaceAll("&#252;", "ü");
+		result = result.replaceAll("&#199;", "Ç");
+		result = result.replaceAll("&#231;", "ç");
+		result = result.replaceAll("&#286;", "Ğ");
+		result = result.replaceAll("&#287;", "ğ");
+		result = result.replaceAll("&#350;", "Ş");
+		result = result.replaceAll("&#351;", "ş");
+		
+		return result;
 	}
 }

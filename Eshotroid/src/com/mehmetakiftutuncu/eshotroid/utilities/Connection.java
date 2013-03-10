@@ -1,11 +1,10 @@
 package com.mehmetakiftutuncu.eshotroid.utilities;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -43,19 +42,15 @@ public class Connection
 		
 		String result = null;
 		
-		try
-		{
-			URL url = new URL(pageUrl);
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			result = readStream(connection.getInputStream());
-			
-			if(result == null)
-			{
-				Log.e(LOG_TAG, "Data read from stream was null!");
-				
-				return null;
-			}
-		}
+		HttpClient client = new DefaultHttpClient();
+        HttpGet request = new HttpGet(pageUrl);
+        ResponseHandler<String> responseHandler = new BasicResponseHandler();
+        
+        try
+        {
+        	// Get the response
+			result = client.execute(request, responseHandler);
+        }
 		catch(Exception e)
 		{
 			Log.e(LOG_TAG, "Couldn't get the page!", e);
@@ -63,54 +58,6 @@ public class Connection
 		
 		return result;
 	}
-	
-	/**
-	 * Reads all the data from an {@link InputStream}
-	 * 
-	 * @param inputStream {@link InputStream} object to read from
-	 * 
-	 * @return A {@link String} containing all the data, null if any error occurs
-	 */
-	private static String readStream(InputStream inputStream)
-	{
-		BufferedReader bufferedReader = null;
-		String result = "";
-		
-		try
-		{
-			bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-			
-			String line = "";
-			while ((line = bufferedReader.readLine()) != null)
-			{
-				result += line;
-		    }
-		}
-		catch(IOException e)
-		{
-			Log.e(LOG_TAG, "Couldn't read the stream!", e);
-			
-			return null;
-		}
-		finally
-		{
-			if (bufferedReader != null)
-			{
-				try
-				{
-					bufferedReader.close();
-				}
-				catch(IOException e)
-				{
-					Log.e(LOG_TAG, "Couldn't close the buffered reader!", e);
-					
-					return null;
-		        }
-		    }
-		}
-		
-		return result;
-	} 
 	
 	/**
 	 * Checks the network availability
@@ -129,5 +76,5 @@ public class Connection
 	        return true;
 	    }
 	    return false;
-	} 
+	}
 }

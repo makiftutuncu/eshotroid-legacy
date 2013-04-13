@@ -1,7 +1,5 @@
 package com.mehmetakiftutuncu.eshotroid.model;
 
-import com.mehmetakiftutuncu.eshotroid.Constants;
-
 /**
  * A model class for a bus line
  * 
@@ -10,12 +8,16 @@ import com.mehmetakiftutuncu.eshotroid.Constants;
 public class BusLine
 {
 	private String number;
-	private String name;
+	private String source;
+	private String destination;
+	private String route;
 	
-	public BusLine(String number, String name)
+	public BusLine(String number, String source, String destination, String route)
 	{
 		setNumber(number);
-		setName(name);
+		setSource(source);
+		setDestination(destination);
+		setRoute(route);
 	}
 
 	public String getNumber()
@@ -28,19 +30,39 @@ public class BusLine
 		this.number = number;
 	}
 	
-	public String getName()
+	public String getSource()
 	{
-		return name;
+		return source;
 	}
 	
-	public void setName(String name)
+	public void setSource(String source)
 	{
-		this.name = name;
+		this.source = source;
+	}
+	
+	public String getDestination()
+	{
+		return destination;
+	}
+	
+	public void setDestination(String destination)
+	{
+		this.destination = destination;
+	}
+	
+	public String getRoute()
+	{
+		return route;
+	}
+	
+	public void setRoute(String route)
+	{
+		this.route = route;
 	}
 
 	@Override
 	public String toString()
 	{
-		return String.format("%s%s%s", getNumber(), Constants.BUS_LINE_SEPERATOR, getName());
+		return String.format("%s: %s - %s", getNumber(), getSource(), getDestination());
 	}
 }

@@ -1,41 +1,25 @@
 package com.mehmetakiftutuncu.eshotroid;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mehmetakiftutuncu.eshotroid.model.BusLine;
+import com.mehmetakiftutuncu.eshotroid.model.BusTime;
 import com.mehmetakiftutuncu.eshotroid.utilities.GetPageTask;
 import com.mehmetakiftutuncu.eshotroid.utilities.Parser;
+import com.mehmetakiftutuncu.eshotroid.utilities.Processor;
 
 /**
  * Main activity of the application
  * 
  * @author Mehmet Akif Tütüncü
  */
-public class Main extends Activity implements OnClickListener
+public class Main extends Activity
 {
-	private Button bWeekDay;
-	private Button bSaturday;
-	private Button bSunday;
-	private ListView lBusLines;
-	private TextView tSelectedLine;
-	
-	private String selectedLine;
-	private String selectedLineFull;
-	
 	/**
 	 * Tag for debugging
 	 */
@@ -49,6 +33,7 @@ public class Main extends Activity implements OnClickListener
 		
 		initialize();
 		
+		Log.i(LOG_TAG, "Getting all bus lines...");
 		GetPageTask task = new GetPageTask(this);
 		task.execute(Constants.BUS_LINES_URL);
 		
@@ -58,26 +43,62 @@ public class Main extends Activity implements OnClickListener
 			
 			if(busLinesPage != null)
 			{
-				ArrayList<BusLine> lines = Parser.getBusLines(busLinesPage);
-				String[] lineTexts = new String[lines.size()];
+				ArrayList<String> busLines = Parser.parseBusLines(busLinesPage);
 				
-				for(int i = 0; i < lines.size(); i++)
+				Log.i(LOG_TAG, "These are what we get as bus lines from the page:");
+				for(String i : busLines)
 				{
-					lineTexts[i] = lines.get(i).toString();
+					Log.i(LOG_TAG, i);
 				}
 				
-				lBusLines.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lineTexts));
-				lBusLines.setOnItemClickListener(new OnItemClickListener()
+				Log.i(LOG_TAG, "Let\'s process these motherfuckers.");
+				ArrayList<BusLine> busLineObjects = Processor.processBusLines(busLines);
+				
+				Log.i(LOG_TAG, "Cool! Now let\'s get the times for a random bus.");
+				BusLine randomBus = busLineObjects.get(new Random().nextInt(busLineObjects.size()));
+				String url = String.format("%s?%s=%s&%s=%s", 	Constants.BUS_TIMES_URL,
+																Constants.TYPE_PARAMETER,
+																"H",
+																Constants.LINE_PARAMETER,
+																randomBus.getNumber());
+				
+				Log.i(LOG_TAG, "Getting bus times for " + randomBus.getNumber() + "...");
+				task = new GetPageTask(this);
+				task.execute(url);
+				
+				try
 				{
-					@Override
-					public void onItemClick(AdapterView<?> adapter, View view, int index, long id)
+					String busTimesPage = task.get();
+					
+					if(busTimesPage != null)
 					{
-						TextView t = (TextView) view;
-						selectedLineFull = t.getText().toString();
-						selectedLine = selectedLineFull.split(Constants.BUS_LINE_SEPERATOR)[0];
-						tSelectedLine.setText(getString(R.string.selectedLine) + ": " + selectedLine);
+						ArrayList<String> busTimes = Parser.parseBusTimes(busTimesPage);
+						
+						Log.i(LOG_TAG, "These are what we get as bus times from the page:");
+						for(String i : busTimes)
+						{
+							Log.i(LOG_TAG, i);
+						}
+						
+						Log.i(LOG_TAG, "Let\'s process these motherfuckers as well.");
+						ArrayList<BusTime> busTimeObjects = Processor.processBusTimes(busTimes);
+						
+						Log.i(LOG_TAG, "Cool! Cool, cool, cool! Now let\'s see the final result.");
+						
+						Log.i(LOG_TAG, "Bus: " + randomBus.getNumber());
+						Log.i(LOG_TAG, randomBus.getSource() + " / " + randomBus.getDestination());
+						for(BusTime i : busTimeObjects)
+						{
+							Log.i(LOG_TAG, i.getTimeFromSource() + " / " + i.getTimeFromDestination());
+						}
+						
+						Log.i(LOG_TAG, "Voila!");
 					}
-				});
+				}
+				catch(Exception e)
+				{
+					Log.e(LOG_TAG, "Couldn't load bus times!", e);
+				}
 			}
 		}
 		catch(Exception e)
@@ -88,48 +109,5 @@ public class Main extends Activity implements OnClickListener
 	
 	private void initialize()
 	{
-		bWeekDay = (Button) findViewById(R.id.main_button_weekDays);
-		bSaturday = (Button) findViewById(R.id.main_button_saturday);
-		bSunday = (Button) findViewById(R.id.main_button_sunday);
-		lBusLines = (ListView) findViewById(R.id.main_listView_busLines);
-		tSelectedLine = (TextView) findViewById(R.id.main_textView_selectedLine);
-		
-		bWeekDay.setOnClickListener(this);
-		bSaturday.setOnClickListener(this);
-		bSunday.setOnClickListener(this);
-	}
-	
-	private void getLineInformation(String type, String line, String info)
-	{
-		Intent intent = new Intent(this, Times.class);
-		intent.putExtra(Constants.TYPE_EXTRA, type);
-		intent.putExtra(Constants.LINE_EXTRA, line);
-		intent.putExtra(Constants.FULL_INFO_EXTRA, info);
-		startActivity(intent);
-	}
-
-	@Override
-	public void onClick(View v)
-	{
-		if(selectedLine == null)
-		{
-			Toast.makeText(this, getString(R.string.selectLineFirst), Toast.LENGTH_SHORT).show();
-			
-			return;
-		}
-		switch(v.getId())
-		{
-			case R.id.main_button_weekDays:
-				getLineInformation("H", selectedLine, selectedLineFull);
-				break;
-
-			case R.id.main_button_saturday:
-				getLineInformation("C", selectedLine, selectedLineFull);
-				break;
-
-			case R.id.main_button_sunday:
-				getLineInformation("P", selectedLine, selectedLineFull);
-				break;
-		}
 	}
 }

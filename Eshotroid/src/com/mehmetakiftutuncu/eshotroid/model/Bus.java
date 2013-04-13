@@ -3,16 +3,16 @@ package com.mehmetakiftutuncu.eshotroid.model;
 import java.util.ArrayList;
 
 /**
- * A model class for all times of a bus line
+ * A model class for a bus
  * 
  * @author Mehmet Akif Tütüncü
  */
-public class BusLineTimes
+public class Bus
 {
 	private BusLine line;
 	private ArrayList<BusTime> times;
 	
-	public BusLineTimes(BusLine line, ArrayList<BusTime> times)
+	public Bus(BusLine line, ArrayList<BusTime> times)
 	{
 		setLine(line);
 		setTimes(times);

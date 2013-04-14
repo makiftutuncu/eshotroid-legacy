@@ -3,22 +3,50 @@
     android:layout_height="fill_parent" >
 
     <ImageView
-        android:id="@+id/times_imageView_banner"
+        android:id="@+id/imageView_times_banner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/eshot_banner" />
-    
-    <TextView
-        android:id="@+id/times_textView_selectedLine"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/linearLayout_times_header"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/times_imageView_banner"
+        android:layout_below="@+id/imageView_times_banner"
         android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        android:text="@string/selectedLine"
-        android:textAppearance="@android:style/TextAppearance.Large" />
+        android:padding="10dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView_times_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="@android:style/TextAppearance.Medium" />
+
+        <TextView
+            android:id="@+id/textView_times_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="@android:style/TextAppearance.Medium" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/linearLayout_times_header"
+        android:layout_centerHorizontal="true" >
+
+        <TableLayout
+            android:id="@+id/tableLayout_times"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </TableLayout>
+    </ScrollView>
 
 </RelativeLayout>

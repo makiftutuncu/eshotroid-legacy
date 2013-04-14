@@ -65,4 +65,18 @@ public class BusLine
 	{
 		return String.format("%s: %s - %s", getNumber(), getSource(), getDestination());
 	}
+	
+	public static BusLine create(String text)
+	{
+		String[] temp = text.split(":");
+		
+		String number = temp[0];
+		
+		temp = temp[1].split("\\-");
+		
+		String source = temp[0].trim();
+		String destination = temp[1].trim();
+		
+		return new BusLine(number, source, destination, "");
+	}
 }

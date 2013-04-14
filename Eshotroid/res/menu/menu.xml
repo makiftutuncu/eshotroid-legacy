@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/item_refresh"
+        android:icon="@drawable/ic_refresh"
+        android:showAsAction="always"
+        android:title="@string/menu_refresh">
+    </item>
+    <item
+        android:id="@+id/item_more"
+        android:icon="@drawable/ic_overflow"
+        android:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/item_rate"
+                android:icon="@drawable/ic_rate"
+                android:title="@string/menu_rate">
+            </item>
+            <item
+                android:id="@+id/item_contact"
+                android:icon="@drawable/ic_contact"
+                android:title="@string/menu_contact">
+            </item>
+            <item
+                android:id="@+id/item_website"
+                android:icon="@drawable/ic_website"
+                android:title="@string/menu_website">
+            </item>
+            <item
+                android:id="@+id/item_about"
+                android:icon="@drawable/ic_about"
+                android:title="@string/menu_about">
+            </item>
+        </menu>
+    </item>
+
+</menu>

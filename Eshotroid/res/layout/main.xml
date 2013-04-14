@@ -9,60 +9,50 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/eshot_banner" />
-    
-    <LinearLayout
-        android:id="@+id/main_linearLayout_types"
+
+    <RadioGroup
+        android:id="@+id/main_radioGroup_types"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
         android:weightSum="3" >
 
-        <Button
-            android:id="@+id/main_button_weekDays"
+        <RadioButton
+            android:id="@+id/main_radioButton_weekDays"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="@string/weekDay" />
+            android:text="@string/weekDay"
+            android:textAppearance="@android:style/TextAppearance.Small" />
 
-        <Button
-            android:id="@+id/main_button_saturday"
+        <RadioButton
+            android:id="@+id/main_radioButton_saturday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="@string/saturday" />
+            android:text="@string/saturday"
+            android:textAppearance="@android:style/TextAppearance.Small" />
 
-        <Button
-            android:id="@+id/main_button_sunday"
+        <RadioButton
+            android:id="@+id/main_radioButton_sunday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="@string/sunday" />
-
-    </LinearLayout>
-    
-    <TextView
-        android:id="@+id/main_textView_selectedLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/main_imageView_banner"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        android:text="@string/selectedLine"
-        android:textAppearance="@android:style/TextAppearance.Large" />
+            android:text="@string/sunday"
+            android:textAppearance="@android:style/TextAppearance.Small" />
+    </RadioGroup>
 
     <ListView
-        android:id="@+id/main_listView_busLines"
+        android:id="@+id/main_indexableListView_busLines"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/main_linearLayout_types"
-        android:layout_below="@+id/main_textView_selectedLine"
-        android:layout_margin="5dp" >
-
-    </ListView>
+        android:layout_above="@+id/main_radioGroup_types"
+        android:layout_below="@+id/main_imageView_banner"
+        android:layout_margin="5dp" />
 
 </RelativeLayout>

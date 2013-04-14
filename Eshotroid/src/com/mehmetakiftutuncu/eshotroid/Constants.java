@@ -19,4 +19,9 @@ public class Constants
 	public static final String TYPE_PARAMETER = "tip";
 	/**	Line parameter of the {@link BUS_TIMES_URL} */
 	public static final String LINE_PARAMETER = "hatno";
+	
+	/**	Extra tag for the type parameter of the {@link BUS_TIMES_URL} */
+	public static final String TYPE_EXTRA = "type";
+	/**	Extra tag for the bus line */
+	public static final String BUS_LINE_EXTRA = "busLine";
 }

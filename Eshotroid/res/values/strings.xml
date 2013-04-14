@@ -2,13 +2,16 @@
 <resources>
 
     <string name="app_name">Eshotroid</string>
-    
     <string name="weekDay">Hafta İçi</string>
     <string name="saturday">Cumartesi</string>
     <string name="sunday">Pazar</string>
-    <string name="selectedLine">Seçilen Hat</string>
     <string name="pleaseWait">Lütfen Bekleyin</string>
     <string name="connecting">Bağlanılıyor#8230;</string>
-    <string name="selectLineFirst">Lütfen önce bir hat seçin.</string>
+    
+    <string name="menu_refresh">Yenile</string>
+    <string name="menu_rate">Oy Verin/Yorum Yapın</string>
+    <string name="menu_contact">Geliştiriciye Ulaşın</string>
+    <string name="menu_website">Geliştiricinin Web Sayfası</string>
+    <string name="menu_about">Hakkında</string>
 
 </resources>

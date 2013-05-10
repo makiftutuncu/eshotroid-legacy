@@ -9,15 +9,65 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/eshot_banner" />
+    
+    <TextView
+        android:id="@+id/textView_times_route"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView_times_banner"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textAppearance="@android:style/TextAppearance.Medium" />
+    
+    <RadioGroup
+        android:id="@+id/radioGroup_times_types"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_times_route"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="3" >
+
+        <RadioButton
+            android:id="@+id/radioButton_times_weekDays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/weekDay"
+            android:textAppearance="@android:style/TextAppearance.Small" />
+
+        <RadioButton
+            android:id="@+id/radioButton_times_saturday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/saturday"
+            android:textAppearance="@android:style/TextAppearance.Small" />
+
+        <RadioButton
+            android:id="@+id/radioButton_times_sunday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/sunday"
+            android:textAppearance="@android:style/TextAppearance.Small" />
+    </RadioGroup>
 
     <LinearLayout
         android:id="@+id/linearLayout_times_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView_times_banner"
+        android:layout_below="@+id/radioGroup_times_types"
         android:layout_centerHorizontal="true"
-        android:padding="10dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:padding="10dp" >
 
         <TextView
             android:id="@+id/textView_times_source"
@@ -36,17 +86,37 @@
             android:textAppearance="@android:style/TextAppearance.Medium" />
     </LinearLayout>
 
-    <ScrollView
+    <com.handmark.pulltorefresh.library.PullToRefreshScrollView
+        android:id="@+id/pullToRefreshScrollView_times"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/linearLayout_times_header"
-        android:layout_centerHorizontal="true" >
+        android:layout_centerHorizontal="true"
+        android:fastScrollEnabled="true"
+        android:smoothScrollbar="true" >
 
         <TableLayout
             android:id="@+id/tableLayout_times"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
         </TableLayout>
-    </ScrollView>
+    </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/pullToRefreshScrollView_times"
+        android:layout_alignLeft="@+id/pullToRefreshScrollView_times"
+        android:layout_alignRight="@+id/pullToRefreshScrollView_times"
+        android:layout_alignTop="@+id/pullToRefreshScrollView_times" >
+
+        <ProgressBar
+            android:id="@+id/progressBar_times"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

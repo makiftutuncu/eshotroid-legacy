@@ -1,7 +1,6 @@
 package com.mehmetakiftutuncu.eshotroid;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,20 +11,22 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.google.gson.Gson;
-import com.mehmetakiftutuncu.eshotroid.model.BusLine;
-import com.mehmetakiftutuncu.eshotroid.model.BusLineListAdapter;
-import com.mehmetakiftutuncu.eshotroid.utilities.GetPageTask;
-import com.mehmetakiftutuncu.eshotroid.utilities.Parser;
-import com.mehmetakiftutuncu.eshotroid.utilities.Processor;
-import com.mehmetakiftutuncu.eshotroid.utilities.StorageManager;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnPullEventListener;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.mehmetakiftutuncu.eshotroid.database.MyDatabase;
+import com.mehmetakiftutuncu.eshotroid.model.Bus;
+import com.mehmetakiftutuncu.eshotroid.utilities.BusListAdapter;
+import com.mehmetakiftutuncu.eshotroid.utilities.GetBussesPageTask;
 
 /**
  * Main activity of the application
@@ -34,13 +35,11 @@ import com.mehmetakiftutuncu.eshotroid.utilities.StorageManager;
  */
 public class Main extends SherlockActivity
 {
-	private RadioButton rbWeekDays;
-	private RadioButton rbSaturday;
-	private RadioButton rbSunday;
-	private ListView lvList;
+	private PullToRefreshListView ptrList;
+	private ProgressBar progressBar;
 	
 	private String searchQuery;
-	private BusLineListAdapter busLineListAdapter;
+	private BusListAdapter busListAdapter;
 	
 	/**
 	 * Tag for debugging
@@ -53,11 +52,9 @@ public class Main extends SherlockActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		Constants.PACKAGE_NAME = getPackageName();
-		
 		initialize();
 		
-		loadBusLines();
+		loadBusses();
 	}
 	
 	@Override
@@ -65,7 +62,8 @@ public class Main extends SherlockActivity
 	{
 		View searchView = SearchViewCompat.newSearchView(getSupportActionBar().getThemedContext());
 		
-		menu.add("Search").setIcon(R.drawable.ic_search)
+		menu.add("item_search")
+			.setIcon(R.drawable.ic_search)
         	.setActionView(searchView)
         	.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 		
@@ -78,7 +76,7 @@ public class Main extends SherlockActivity
         	public boolean onQueryTextChange(String newText)
         	{
         		searchQuery = !TextUtils.isEmpty(newText) ? newText : null;
-        		busLineListAdapter.getFilter().filter(searchQuery);
+        		busListAdapter.getFilter().filter(searchQuery);
         		return true;
         	}
         });
@@ -89,106 +87,97 @@ public class Main extends SherlockActivity
 	/**	Initializes components */
 	private void initialize()
 	{
-		rbWeekDays = (RadioButton) findViewById(R.id.main_radioButton_weekDays);
-		rbSaturday = (RadioButton) findViewById(R.id.main_radioButton_saturday);
-		rbSunday = (RadioButton) findViewById(R.id.main_radioButton_sunday);
-		
-		updateSelectedLineType();
-		
-		lvList = (ListView) findViewById(R.id.main_indexableListView_busLines);
-		lvList.setFastScrollEnabled(true);
-		lvList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+		ptrList = (PullToRefreshListView) findViewById(R.id.pullToRefreshListView_main_busses);
+		ptrList.getLoadingLayoutProxy().setPullLabel(getString(R.string.pullToRefresh_pull));
+		ptrList.getLoadingLayoutProxy().setReleaseLabel(getString(R.string.pullToRefresh_release));
+		ptrList.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view, int index, long id)
 			{
-				String line = new Gson().toJson(BusLine.create(((TextView) view).getText().toString()));
-				String type = getSelectedLineType();
+				Bus bus = (Bus) adapter.getItemAtPosition(index);
 				
 				Intent intent = new Intent(Main.this, Times.class);
-				intent.putExtra(Constants.BUS_LINE_EXTRA, line);
-				intent.putExtra(Constants.TYPE_EXTRA, type);
+				intent.putExtra(Constants.BUS_NUMBER_EXTRA, bus.getNumber());
 				startActivity(intent);
 			}
 		});
+		ptrList.setOnPullEventListener(new OnPullEventListener<ListView>()
+		{
+			@Override
+			public void onPullEvent(PullToRefreshBase<ListView> refreshView, State state, Mode direction)
+			{
+				ptrList.getLoadingLayoutProxy().setRefreshingLabel(getString(R.string.pullToRefresh_refresh));
+			}
+		});
+		ptrList.setOnRefreshListener(new OnRefreshListener<ListView>()
+		{
+			@Override
+			public void onRefresh(PullToRefreshBase<ListView> refreshView)
+			{
+				downloadBusses();
+			}
+		});
+		ptrList.setScrollingWhileRefreshingEnabled(false);
+		
+		progressBar = (ProgressBar) findViewById(R.id.progressBar_main);
 	}
 	
-	/**	Loads bus lines from external storage if possible, if not tries to download them. */
-	private void loadBusLines()
+	/**	Tries to download busses */
+	private void downloadBusses()
 	{
-		ArrayList<BusLine> busLines = StorageManager.readBusLines();
-		if(busLines != null)
+		Log.d(LOG_TAG, "Trying to download busses...");
+		
+		GetBussesPageTask task = new GetBussesPageTask(this, ptrList);
+		task.execute();
+	}
+	
+	/**	Reads busses from the database if possible, if not tries to download them. */
+	private void loadBusses()
+	{
+		/* Change the UI to waiting mode */
+		toggleProgressBar(true);
+		
+		/* Read busses from the database */
+		MyDatabase db = new MyDatabase(this);
+		db.openDB();
+		ArrayList<Bus> busses = db.get();
+		db.closeDB();
+		
+		/* If no busses exist on the database */
+		if(busses.size() == 0)
 		{
-			Log.d(LOG_TAG, "Bus lines already exist on the external storage.");
+			Log.d(LOG_TAG, "Busses are not on the database.");
+			
+			downloadBusses();
 		}
 		else
 		{
-			Log.d(LOG_TAG, "Bus lines don't exist on the external storage. Trying to download...");
+			Log.d(LOG_TAG, "Busses are already on the database.");
 			
-			GetPageTask task = new GetPageTask(this);
-			task.execute(Constants.BUS_LINES_URL);
+			/* Change the UI to ready mode */
+			toggleProgressBar(false);
 			
-			try
-			{
-				String busLinesPage = task.get();
-				
-				if(busLinesPage != null)
-				{
-					ArrayList<String> parsedBusLines = Parser.parseBusLines(busLinesPage);
-					busLines = Processor.processBusLines(parsedBusLines);
-					
-					StorageManager.storeBusLines(busLines);
-				}
-			}
-			catch(Exception e)
-			{
-				Log.e(LOG_TAG, "Couldn't download bus times!", e);
-			}
-		}
-		
-		busLineListAdapter = new BusLineListAdapter(this, busLines);
-		lvList.setAdapter(busLineListAdapter);
-	}
-	
-	/**	Updates the selected line type radio buttons according to the current day */
-	private void updateSelectedLineType()
-	{
-		switch(Calendar.getInstance().get(Calendar.DAY_OF_WEEK))
-		{
-			case Calendar.MONDAY:
-			case Calendar.TUESDAY:
-			case Calendar.WEDNESDAY:
-			case Calendar.THURSDAY:
-			case Calendar.FRIDAY:
-				rbWeekDays.setChecked(true);
-				break;
-			case Calendar.SATURDAY:
-				rbSaturday.setChecked(true);
-				break;
-			case Calendar.SUNDAY:
-				rbSunday.setChecked(true);
-				break;
+			/* Fill the list */
+			busListAdapter = new BusListAdapter(this, busses);
+			ptrList.setAdapter(busListAdapter);
 		}
 	}
 	
 	/**
-	 * Gets the appropriate line type parameter according to the selected radio button
+	 * Toggles the progress bar
 	 * 
-	 * @return The appropriate line type parameter
+	 * @param turnOn Should be true to turn progress bar on
 	 */
-	private String getSelectedLineType()
+	public void toggleProgressBar(boolean turnOn)
 	{
-		if(rbSaturday.isChecked())
+		if(turnOn)
 		{
-			return "C";
-		}
-		else if(rbSunday.isChecked())
-		{
-			return "P";
+			progressBar.setVisibility(View.VISIBLE);
 		}
 		else
 		{
-			return "H";
+			progressBar.setVisibility(View.GONE);
 		}
 	}
 }

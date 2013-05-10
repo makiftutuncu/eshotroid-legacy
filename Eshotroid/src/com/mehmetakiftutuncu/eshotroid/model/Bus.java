@@ -9,32 +9,104 @@ import java.util.ArrayList;
  */
 public class Bus
 {
-	private BusLine line;
-	private ArrayList<BusTime> times;
+	private int number;
+	private String source;
+	private String destination;
+	private String route;
+	private boolean isStarred;
+	private ArrayList<BusTime> timesH;
+	private ArrayList<BusTime> timesC;
+	private ArrayList<BusTime> timesP;
 	
-	public Bus(BusLine line, ArrayList<BusTime> times)
+	public Bus(int number, String source, String destination, String route, boolean isStarred, ArrayList<BusTime> timesH, ArrayList<BusTime> timesC, ArrayList<BusTime> timesP)
 	{
-		setLine(line);
-		setTimes(times);
+		setNumber(number);
+		setSource(source);
+		setDestination(destination);
+		setRoute(route);
+		setStarred(isStarred);
+		setTimesH(timesH);
+		setTimesC(timesC);
+		setTimesP(timesP);
 	}
 
-	public BusLine getLine()
+	public int getNumber()
 	{
-		return line;
+		return number;
 	}
 	
-	public void setLine(BusLine line)
+	public void setNumber(int number)
 	{
-		this.line = line;
+		this.number = number;
 	}
 	
-	public ArrayList<BusTime> getTimes()
+	public String getSource()
 	{
-		return times;
+		return source;
 	}
 	
-	public void setTimes(ArrayList<BusTime> times)
+	public void setSource(String source)
 	{
-		this.times = times;
+		this.source = source;
+	}
+	
+	public String getDestination()
+	{
+		return destination;
+	}
+	
+	public void setDestination(String destination)
+	{
+		this.destination = destination;
+	}
+	
+	public String getRoute()
+	{
+		return route;
+	}
+	
+	public void setRoute(String route)
+	{
+		this.route = route;
+	}
+	
+	public boolean isStarred()
+	{
+		return isStarred;
+	}
+	
+	public void setStarred(boolean isStarred)
+	{
+		this.isStarred = isStarred;
+	}
+	
+	public ArrayList<BusTime> getTimesH()
+	{
+		return timesH;
+	}
+	
+	public void setTimesH(ArrayList<BusTime> timesH)
+	{
+		this.timesH = timesH;
+	}
+	
+	public ArrayList<BusTime> getTimesC()
+	{
+		return timesC;
+	}
+	
+	public void setTimesC(ArrayList<BusTime> timesC)
+	{
+		this.timesC = timesC;
+	}
+	
+	public ArrayList<BusTime> getTimesP()
+	{
+		return timesP;
+	}
+	
+	public void setTimesP(ArrayList<BusTime> timesP)
+	{
+		this.timesP = timesP;
 	}
 }

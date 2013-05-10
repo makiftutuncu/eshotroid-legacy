@@ -3,56 +3,37 @@
     android:layout_height="fill_parent" >
 
     <ImageView
-        android:id="@+id/main_imageView_banner"
+        android:id="@+id/imageView_main_banner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/eshot_banner" />
 
-    <RadioGroup
-        android:id="@+id/main_radioGroup_types"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:orientation="horizontal"
-        android:weightSum="3" >
-
-        <RadioButton
-            android:id="@+id/main_radioButton_weekDays"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="@string/weekDay"
-            android:textAppearance="@android:style/TextAppearance.Small" />
-
-        <RadioButton
-            android:id="@+id/main_radioButton_saturday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="@string/saturday"
-            android:textAppearance="@android:style/TextAppearance.Small" />
-
-        <RadioButton
-            android:id="@+id/main_radioButton_sunday"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:text="@string/sunday"
-            android:textAppearance="@android:style/TextAppearance.Small" />
-    </RadioGroup>
-
-    <ListView
-        android:id="@+id/main_indexableListView_busLines"
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/pullToRefreshListView_main_busses"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/imageView_main_banner"
+        android:layout_margin="5dp"
+        android:fastScrollEnabled="true"
+        android:smoothScrollbar="true" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/main_radioGroup_types"
-        android:layout_below="@+id/main_imageView_banner"
-        android:layout_margin="5dp" />
+        android:layout_alignBottom="@+id/pullToRefreshListView_main_busses"
+        android:layout_alignLeft="@+id/pullToRefreshListView_main_busses"
+        android:layout_alignRight="@+id/pullToRefreshListView_main_busses"
+        android:layout_alignTop="@+id/pullToRefreshListView_main_busses" >
+
+        <ProgressBar
+            android:id="@+id/progressBar_main"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

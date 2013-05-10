@@ -7,21 +7,18 @@ package com.mehmetakiftutuncu.eshotroid;
  */
 public class Constants
 {
-	/**	Package name of the application */
-	public static String PACKAGE_NAME;
-	
-	/**	URL of the mobile ESHOT web site to which requests will be sent to get bus lines */
-	public static final String BUS_LINES_URL = "http://mobil.eshot.gov.tr/Ulasim.aspx";
-	/**	URL of the mobile ESHOT web site to which requests will be sent to get times of a specific bus line */
+	/**	URL of the mobile ESHOT web site to which requests will be sent to get busses */
+	public static final String BUSSES_URL = "http://mobil.eshot.gov.tr/Ulasim.aspx";
+	/**	URL of the mobile ESHOT web site to which requests will be sent to get times of a specific bus */
 	public static final String BUS_TIMES_URL = "http://mobil.eshot.gov.tr/Saatler.aspx";
 	
 	/**	Type parameter of the {@link BUS_TIMES_URL} */
 	public static final String TYPE_PARAMETER = "tip";
-	/**	Line parameter of the {@link BUS_TIMES_URL} */
-	public static final String LINE_PARAMETER = "hatno";
+	/**	Number parameter of the {@link BUS_TIMES_URL} */
+	public static final String NUMBER_PARAMETER = "hatno";
 	
 	/**	Extra tag for the type parameter of the {@link BUS_TIMES_URL} */
 	public static final String TYPE_EXTRA = "type";
-	/**	Extra tag for the bus line */
-	public static final String BUS_LINE_EXTRA = "busLine";
+	/**	Extra tag for the bus number */
+	public static final String BUS_NUMBER_EXTRA = "busNumber";
 }

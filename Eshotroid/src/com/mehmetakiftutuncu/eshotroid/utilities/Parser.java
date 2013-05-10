@@ -12,15 +12,20 @@ import android.util.Log;
  */
 public class Parser
 {
-	// Tags for a bus line in Ulasim.aspx
-	public static final String BUSLINE_OPEN_START = "<option value=";
-	public static final String BUSLINE_OPEN_END = "\">";
-	public static final String BUSLINE_CLOSE = "</option>";
+	// Tags for a busses in Ulasim.aspx
+	public static final String BUS_OPEN_START = "<option value=";
+	public static final String BUS_OPEN_END = "\">";
+	public static final String BUS_CLOSE = "</option>";
 	
 	// Tags for a bus time in Saatler.aspx
 	public static final String BUSTIME_OPEN_START = "<td ";
 	public static final String BUSTIME_OPEN_END = "\">";
 	public static final String BUSTIME_CLOSE = "</td>";
+	
+	// Tags for a bus route in Saatler.aspx
+	public static final String BUSROUTE_OPEN_START = "<span ";
+	public static final String BUSROUTE_OPEN_END = "Guzergah\">";
+	public static final String BUSROUTE_CLOSE = "</span>";
 	
 	// Extra tags to be ignored for a bus time
 	public static final String BUSTIME_FONT_OPEN_START = "<font ";
@@ -36,19 +41,57 @@ public class Parser
 	public static final String LOG_TAG = "Eshotroid_Parser";
 	
 	/**
+	 * Gets the route of the bus from the times page of that bus
+	 * 
+	 * @param page Source of the page
+	 * 
+	 * @return Route of the bus, null if any error occurs
+	 */
+	public static String parseBusRoute(String page)
+	{
+		String result = null;
+		
+		// Start looking for bus route
+        int start = 0, end = 0;
+        
+		// Get the bus route information start point
+        start = page.indexOf(BUSROUTE_OPEN_START);
+        if(start != -1)
+        {
+        	// Get where the start point ends
+        	start = page.indexOf(BUSROUTE_OPEN_END, start);
+        	if(start != -1)
+        	{
+        		// This is the actual start point of the bus route information
+        		start += BUSROUTE_OPEN_END.length();
+        		
+        		// Now look for where the bus route information ends
+        		end = page.indexOf(BUSROUTE_CLOSE, start);
+        		if(end != -1)
+        		{
+        			// Now we extract the bus route information using the found start and end points
+        			result = page.substring(start, end);
+        		}
+        	}
+        }
+        
+		return result;
+	}
+	
+	/**
 	 * Gets the list of the bus times from the specified page
 	 * 
 	 * @param page Source of the page
 	 * 
-	 * @return List of the bus times
+	 * @return List of the bus times, null if any error occurs
 	 */
 	public static ArrayList<String> parseBusTimes(String page)
     {
-		// Resulting list
-		ArrayList<String> list = new ArrayList<String>();
-		
-        try
+		try
         {
+			// Resulting list
+			ArrayList<String> list = new ArrayList<String>();
+			
         	// First find where the actual bus times start
         	int beginning = page.lastIndexOf(BUSTIME_TABLE_TAG);
         	if(beginning != -1)
@@ -97,57 +140,59 @@ public class Parser
                     last = end;
                 }
             } while(start != -1);
+            
+            return list;
         }
         catch(Exception e)
         {
             Log.e(LOG_TAG, "Error occured while parsing bus times!", e);
+            
+            return null;
         }
-        
-        return list;
     }
 
 	/**
-	 * Gets the list of the bus lines from the specified page
+	 * Gets the list of the busses from the specified page
 	 * 
 	 * @param page Source of the page
 	 * 
-	 * @return List of the bus lines
+	 * @return List of the busses, null if any error occurs
 	 */
-    public static ArrayList<String> parseBusLines(String page)
+    public static ArrayList<String> parseBusses(String page)
     {
-    	// Resulting list
-    	ArrayList<String> list = new ArrayList<String>();
-    	
-        try
+    	try
         {
-        	// Start looking for bus lines
+    		// Resulting list
+        	ArrayList<String> list = new ArrayList<String>();
+        	
+        	// Start looking for busses
             int start = 0, end = 0, last = 0;
             do
             {
-            	// Get the next bus line information start point starting from the last known position
-                start = page.indexOf(BUSLINE_OPEN_START, last);
+            	// Get the next bus information start point starting from the last known position
+                start = page.indexOf(BUS_OPEN_START, last);
                 if(start != -1)
                 {
                 	// Get where the start point ends
-                	start = page.indexOf(BUSLINE_OPEN_END, start);
+                	start = page.indexOf(BUS_OPEN_END, start);
                 	if(start != -1)
                 	{
-                		// This is the actual start point of the bus line information
-                		start += BUSLINE_OPEN_END.length();
+                		// This is the actual start point of the bus information
+                		start += BUS_OPEN_END.length();
                 		
-                		// Now look for where the bus line information ends
-                		end = page.indexOf(BUSLINE_CLOSE, start);
+                		// Now look for where the bus information ends
+                		end = page.indexOf(BUS_CLOSE, start);
                 		if(end != -1)
                 		{
-                			// Now we extract the bus line information using the found start and end points
+                			// Now we extract the bus information using the found start and end points
                 			// Plus we fix the Turkish characters in the result
                 			String item = fixTurkishHtmlEntityCharacters(page.substring(start, end));
                 			
-                			// Finally add the found and extracted bus line information to the list
+                			// Finally add the found and extracted bus information to the list
                 			list.add(item);
                 			
-                			// Move the end point of the bus line information forward
-                			end += BUSLINE_CLOSE.length();
+                			// Move the end point of the bus information forward
+                			end += BUS_CLOSE.length();
                 		}
                 	}
 
@@ -155,13 +200,15 @@ public class Parser
                     last = end;
                 }
             } while(start != -1);
+            
+            return list;
         }
         catch(Exception e)
         {
-        	Log.e(LOG_TAG, "Error occured while parsing bus lines!", e);
+        	Log.e(LOG_TAG, "Error occured while parsing busses!", e);
+        	
+        	return null;
         }
-        
-        return list;
     }
     
     /**

@@ -2,14 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/item_refresh"
-        android:icon="@drawable/ic_refresh"
-        android:showAsAction="always"
-        android:title="@string/menu_refresh">
-    </item>
-    <item
         android:id="@+id/item_more"
         android:icon="@drawable/ic_overflow"
+        android:title="@string/menu_more"
         android:showAsAction="always">
         <menu>
             <item

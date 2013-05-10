@@ -41,7 +41,8 @@ public class GetBussesPageTask extends AsyncTask<Void, Void, Void> implements Ru
 		this.context = context;
 		this.ptrList = ptrList;
 		
-		((Main) context).toggleProgressBar(true);
+		((Main) context).toggleMode(true);
+		((Main) context).toggleHeader(true);
 		
 		oldAdapter = ptrList.getRefreshableView().getAdapter();
 		
@@ -85,9 +86,13 @@ public class GetBussesPageTask extends AsyncTask<Void, Void, Void> implements Ru
 	{
 		if(result != null)
 		{
+			((Main) context).toggleHeader(false);
+			
 			if(busses != null)
 			{
 				AppMsg.makeText((Activity) context, context.getString(R.string.info_successful), AppMsg.STYLE_INFO).show();
+				
+				((Main) context).setBussesList(busses);
 				
 				ptrList.setAdapter(new BusListAdapter(context, busses));
 			}
@@ -103,7 +108,7 @@ public class GetBussesPageTask extends AsyncTask<Void, Void, Void> implements Ru
 			AppMsg.makeText((Activity) context, context.getString(R.string.error_noConnection), AppMsg.STYLE_ALERT).show();
 		}
 		
-		((Main) context).toggleProgressBar(false);
+		((Main) context).toggleMode(false);
 		
 		ptrList.onRefreshComplete();
 	}

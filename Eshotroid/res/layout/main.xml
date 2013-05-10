@@ -17,7 +17,8 @@
         android:layout_below="@+id/imageView_main_banner"
         android:layout_margin="5dp"
         android:fastScrollEnabled="true"
-        android:smoothScrollbar="true" />
+        android:smoothScrollbar="true"
+        android:scrollbars="none" />
 
     <RelativeLayout
         android:layout_width="wrap_content"

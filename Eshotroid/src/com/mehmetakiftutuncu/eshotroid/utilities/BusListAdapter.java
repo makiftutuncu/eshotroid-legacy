@@ -11,13 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.mehmetakiftutuncu.eshotroid.Main;
 import com.mehmetakiftutuncu.eshotroid.R;
 import com.mehmetakiftutuncu.eshotroid.model.Bus;
 
-public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
+public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer, OnCheckedChangeListener
 {
 	private Context context;
 	private HashMap<String, Integer> alphaIndexer;
@@ -26,10 +30,13 @@ public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 	
 	private static class ViewHolder
 	{
-		//protected CheckBox star;
+		protected Bus bus;
+		protected CheckBox star;
 		protected TextView number;
 		protected TextView name;
 	}
+	
+	ViewHolder viewHolder;
 
 	public BusListAdapter(Context context, ArrayList<Bus> items)
 	{
@@ -46,18 +53,22 @@ public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 	{
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-		ViewHolder viewHolder = null;
 		if(row == null)
 		{
 			row = inflater.inflate(R.layout.busses_row, parent, false);
+			
 			viewHolder = new ViewHolder();
 			
-			//viewHolder.star = (CheckBox) row.findViewById(R.id.checkBox_busses_row);
+			viewHolder.bus = items.get(position);
+			viewHolder.star = (CheckBox) row.findViewById(R.id.checkBox_busses_row);
 			viewHolder.number = (TextView) row.findViewById(R.id.textView_busses_row_number);
 			viewHolder.name = (TextView) row.findViewById(R.id.textView_busses_row_name);
 			
+			viewHolder.star.setOnCheckedChangeListener(this);
+			
 			row.setTag(viewHolder);
-			//row.setTag(R.id.checkBox_busses_row, viewHolder.star);
+			row.setTag(R.id.linearLayout_busses_row, viewHolder.bus);
+			row.setTag(R.id.checkBox_busses_row, viewHolder.star);
 			row.setTag(R.id.textView_busses_row_number, viewHolder.number);
 			row.setTag(R.id.textView_busses_row_name, viewHolder.name);
 		}
@@ -66,12 +77,27 @@ public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 			viewHolder = (ViewHolder) row.getTag();
 		}
 		
-		Bus bus = items.get(position);
-		
-		viewHolder.number.setText("" + bus.getNumber());
-		viewHolder.name.setText(bus.getSource() + " - " + bus.getDestination());
+		viewHolder.bus = items.get(position);
+		viewHolder.star.setChecked(viewHolder.bus.isStarred());
+		viewHolder.number.setText("" + viewHolder.bus.getNumber());
+		viewHolder.name.setText(viewHolder.bus.getSource() + " - " + viewHolder.bus.getDestination());
 		
 		return row;
+	}
+	
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+	{
+		viewHolder.bus.setStarred(isChecked);
+		
+		/*
+		MyDatabase db = new MyDatabase(context);
+		db.openDB();
+		db.addOrUpdate(viewHolder.bus);
+		db.closeDB();
+		*/
+		
+		((Main) context).updateListHeader();
 	}
 	
 	public void updateSectionlist()
@@ -140,32 +166,5 @@ public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 	public Object[] getSections()
 	{
 		return sections;
-	}
-	
-	public void sort()
-	{
-		if(items != null)
-		{
-			ArrayList<Bus> starred = new ArrayList<Bus>();
-			ArrayList<Bus> nonStarred = new ArrayList<Bus>();
-			
-			for(Bus i : items)
-			{
-				if(i.isStarred())
-				{
-					starred.add(i);
-				}
-				else
-				{
-					nonStarred.add(i);
-				}
-			}
-			
-			items.clear();
-			items.addAll(starred);
-			items.addAll(nonStarred);
-			
-			notifyDataSetChanged();
-		}
 	}
 }

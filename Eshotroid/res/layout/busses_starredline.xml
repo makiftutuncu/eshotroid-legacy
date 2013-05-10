@@ -1,0 +1,5 @@
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/button_starredLine"
+    android:layout_width="64dp"
+    android:layout_height="64dp"
+    android:textAppearance="@android:style/TextAppearance.Medium" />

@@ -20,5 +20,8 @@
     <string name="error_noConnection">İnternet bağlantısı yok!</string>
     <string name="info_successful">Başarılı!</string>
     <string name="info_noClosestTime">Sonraki sefer bulunamadı. Tüm seferler gösteriliyor.</string>
+    
+    <string name="title_starredLines">Yıldızlanmış Hatlar</string>
+    <string name="title_allLines">Tüm Hatlar</string>
 
 </resources>

@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical"
+    android:padding="10dp" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout_starredLines"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawableBottom="@drawable/horizontal_line"
+            android:gravity="center"
+            android:text="@string/title_starredLines"
+            android:textAppearance="@android:style/TextAppearance.Medium" />
+
+        <com.mehmetakiftutuncu.eshotroid.utilities.ExpandableHeightGridView
+            android:id="@+id/gridView_starredLines_grid"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:numColumns="4"
+            android:gravity="center"
+            android:scrollbars="none" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawableBottom="@drawable/horizontal_line"
+        android:gravity="center"
+        android:text="@string/title_allLines"
+        android:textAppearance="@android:style/TextAppearance.Medium" />
+
+</LinearLayout>

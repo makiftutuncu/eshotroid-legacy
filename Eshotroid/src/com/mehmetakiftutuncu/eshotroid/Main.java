@@ -2,6 +2,7 @@ package com.mehmetakiftutuncu.eshotroid;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SearchViewCompat;
@@ -10,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -26,7 +28,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.mehmetakiftutuncu.eshotroid.database.MyDatabase;
 import com.mehmetakiftutuncu.eshotroid.model.Bus;
 import com.mehmetakiftutuncu.eshotroid.utilities.BusListAdapter;
+import com.mehmetakiftutuncu.eshotroid.utilities.ExpandableHeightGridView;
 import com.mehmetakiftutuncu.eshotroid.utilities.GetBussesPageTask;
+import com.mehmetakiftutuncu.eshotroid.utilities.StarredBusGridAdapter;
 
 /**
  * Main activity of the application
@@ -37,9 +41,12 @@ public class Main extends SherlockActivity
 {
 	private PullToRefreshListView ptrList;
 	private ProgressBar progressBar;
+	private LinearLayout header;
 	
 	private String searchQuery;
 	private BusListAdapter busListAdapter;
+	
+	private ArrayList<Bus> busses;
 	
 	/**
 	 * Tag for debugging
@@ -85,6 +92,7 @@ public class Main extends SherlockActivity
     }
 	
 	/**	Initializes components */
+	@SuppressLint("NewApi")
 	private void initialize()
 	{
 		ptrList = (PullToRefreshListView) findViewById(R.id.pullToRefreshListView_main_busses);
@@ -93,9 +101,9 @@ public class Main extends SherlockActivity
 		ptrList.setOnItemClickListener(new AdapterView.OnItemClickListener()
 		{
 			@Override
-			public void onItemClick(AdapterView<?> adapter, View view, int index, long id)
+			public void onItemClick(AdapterView<?> adapter, View view, int position, long id)
 			{
-				Bus bus = (Bus) adapter.getItemAtPosition(index);
+				Bus bus = (Bus) adapter.getItemAtPosition(position);
 				
 				Intent intent = new Intent(Main.this, Times.class);
 				intent.putExtra(Constants.BUS_NUMBER_EXTRA, bus.getNumber());
@@ -120,7 +128,67 @@ public class Main extends SherlockActivity
 		});
 		ptrList.setScrollingWhileRefreshingEnabled(false);
 		
+		if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
+		{
+			ptrList.getRefreshableView().setFastScrollAlwaysVisible(true);
+		}
+		
+		header = (LinearLayout) getLayoutInflater().inflate(R.layout.busses_header, null);
+		
 		progressBar = (ProgressBar) findViewById(R.id.progressBar_main);
+	}
+	
+	/**
+	 * Sets the list of busses
+	 * 
+	 * @param busses New list of busses to be set
+	 */
+	public void setBussesList(ArrayList<Bus> busses)
+	{
+		this.busses = busses;
+	}
+	
+	/**
+	 * Gets the list of busses
+	 */
+	public ArrayList<Bus> getBussesList()
+	{
+		return busses;
+	}
+	
+	/** Updates the list header and adds the starred busses to the top */
+	public void updateListHeader()
+	{
+		if(header != null)
+		{
+			toggleHeader(true);
+		}
+		
+		ExpandableHeightGridView starredLinesGrid = (ExpandableHeightGridView) header.findViewById(R.id.gridView_starredLines_grid);
+		
+		starredLinesGrid.setExpanded(true);
+		
+		ptrList.getRefreshableView().addHeaderView(header, null, false);
+		
+		ArrayList<Bus> starred = new ArrayList<Bus>();
+		
+		for(Bus i : busses)
+		{
+			if(i.isStarred())
+			{
+				starred.add(i);
+			}
+		}
+		
+		if(starred.size() > 0)
+		{
+			starredLinesGrid.setAdapter(new StarredBusGridAdapter(this, starred));
+			header.findViewById(R.id.linearLayout_starredLines).setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			header.findViewById(R.id.linearLayout_starredLines).setVisibility(View.GONE);
+		}
 	}
 	
 	/**	Tries to download busses */
@@ -136,12 +204,13 @@ public class Main extends SherlockActivity
 	private void loadBusses()
 	{
 		/* Change the UI to waiting mode */
-		toggleProgressBar(true);
+		toggleMode(true);
+		toggleHeader(true);
 		
 		/* Read busses from the database */
 		MyDatabase db = new MyDatabase(this);
 		db.openDB();
-		ArrayList<Bus> busses = db.get();
+		busses = db.get();
 		db.closeDB();
 		
 		/* If no busses exist on the database */
@@ -156,7 +225,8 @@ public class Main extends SherlockActivity
 			Log.d(LOG_TAG, "Busses are already on the database.");
 			
 			/* Change the UI to ready mode */
-			toggleProgressBar(false);
+			toggleMode(false);
+			toggleHeader(false);
 			
 			/* Fill the list */
 			busListAdapter = new BusListAdapter(this, busses);
@@ -165,13 +235,30 @@ public class Main extends SherlockActivity
 	}
 	
 	/**
-	 * Toggles the progress bar
+	 * Toggles the list header
 	 * 
-	 * @param turnOn Should be true to turn progress bar on
+	 * @param isGone If true, the header will be removed, else it will be updated and re-added
 	 */
-	public void toggleProgressBar(boolean turnOn)
+	public void toggleHeader(boolean isGone)
 	{
-		if(turnOn)
+		if(isGone)
+		{
+			ptrList.getRefreshableView().removeHeaderView(header);
+		}
+		else
+		{
+			updateListHeader();
+		}
+	}
+	
+	/**
+	 * Toggles the UI mode to either ready or waiting (hides other content and shows a progress bar)
+	 * 
+	 * @param isWaiting If true, mode will change to waiting, else it will change to ready mode
+	 */
+	public void toggleMode(boolean isWaiting)
+	{
+		if(isWaiting)
 		{
 			progressBar.setVisibility(View.VISIBLE);
 		}

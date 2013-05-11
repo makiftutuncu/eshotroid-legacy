@@ -19,7 +19,10 @@
     
     <string name="error_noConnection">İnternet bağlantısı yok!</string>
     <string name="info_successful">Başarılı!</string>
+    <string name="info_noTimes">Belirtilen gün için sefer bulunamadı.</string>
     <string name="info_noClosestTime">Sonraki sefer bulunamadı. Tüm seferler gösteriliyor.</string>
+    <string name="info_selectedTimePassed">Seçtiğiniz otobüsün saati geçmiş.</string>
+    <string name="info_remainingTime">%1$s otobüsüne %2$d saat %3$d dakika zaman var.</string>
     
     <string name="title_favoritedBusses">Sık Kullanılan Otobüsler</string>
     <string name="title_allBusses">Tüm Otobüsler</string>

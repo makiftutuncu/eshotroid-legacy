@@ -33,7 +33,7 @@ public class Parser
 	public static final String BUSTIME_FONT_CLOSE = "</font>";
 	
 	// Tag that encloses bus times
-	public static final String BUSTIME_TABLE_TAG = "<table ";
+	public static final String BUSTIME_TABLE_TAG = "<table cellspacing=";	//public static final String BUSTIME_TABLE_TAG = "<table "; This causes problems if there is no time for the selected bus with selected day (736P is an example)
 	
 	/**
 	 * Tag for debugging
@@ -97,6 +97,12 @@ public class Parser
         	if(beginning != -1)
         	{
         		page = page.substring(beginning);
+        	}
+        	else
+        	{
+        		Log.e(LOG_TAG, "No times were found in the page!");
+                
+                return null;
         	}
         	
         	// Start looking for bus times

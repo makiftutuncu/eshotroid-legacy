@@ -85,7 +85,10 @@ public class GetTimesPageTask extends AsyncTask<Void, Void, Void> implements Run
 		
 		if(result != null)
 		{
-			myBus.setRoute(Parser.parseBusRoute(result));
+			if(myBus.getRoute() == null || myBus.getRoute().equals(""))
+			{
+				myBus.setRoute(Parser.parseBusRoute(result));
+			}
 			
 			ArrayList<String> parsedBusTimes = Parser.parseBusTimes(result);
 			if(parsedBusTimes != null)
@@ -133,13 +136,14 @@ public class GetTimesPageTask extends AsyncTask<Void, Void, Void> implements Run
 			if(busTimes != null)
 			{
 				AppMsg.makeText((Activity) myContext, myContext.getString(R.string.info_successful), AppMsg.STYLE_INFO).show();
-				
-				((Times) myContext).updateInformation(myBus);
 			}
 			else
 			{
 				// Downloaded but couldn't be parsed
+				AppMsg.makeText((Activity) myContext, myContext.getString(R.string.info_noTimes), AppMsg.STYLE_CONFIRM).show();
 			}
+			
+			((Times) myContext).updateInformation(myBus);
 		}
 		else
 		{

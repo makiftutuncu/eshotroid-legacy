@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -210,7 +212,7 @@ public class Times extends SherlockActivity
 		tvSource.setText(bus.getSource());
 		tvDestination.setText(bus.getDestination());
 		
-		LayoutInflater inflator = getLayoutInflater();
+		LayoutInflater inflater = getLayoutInflater();
 		
 		ArrayList<BusTime> times = null;
 		if(type.equals("H"))
@@ -226,60 +228,140 @@ public class Times extends SherlockActivity
 			times = bus.getTimesP();
 		}
 		
-		boolean isEmpty = true;
-		for(BusTime i : times)
+		if(times != null)
 		{
-			View row = inflator.inflate(R.layout.times_row, null);
-
-			TextView source = (TextView) row.findViewById(R.id.textView_times_row_source);
-			TextView destination = (TextView) row.findViewById(R.id.textView_times_row_destination);
-			
-			if(isClosestTime)
+			boolean isEmpty = true;
+			for(BusTime i : times)
 			{
-				String tempSource = i.getTimeFromSource();
-				String tempDestination = i.getTimeFromDestination();
+				View row = inflater.inflate(R.layout.times_row, null);
+
+				Button source = (Button) row.findViewById(R.id.button_times_row_source);
+				Button destination = (Button) row.findViewById(R.id.button_times_row_destination);
 				
-				if(!isTimePassed(tempSource))
+				source.setOnClickListener(new OnClickListener()
 				{
-					source.setText(tempSource);
-				}
-				else
+					@Override
+					public void onClick(View v)
+					{
+						showRemainingTime(((Button) v).getText().toString());
+					}
+				});
+				destination.setOnClickListener(new OnClickListener()
 				{
-					source.setText("");
-				}
+					@Override
+					public void onClick(View v)
+					{
+						showRemainingTime(((Button) v).getText().toString());
+					}
+				});
 				
-				if(!isTimePassed(tempDestination))
+				if(isClosestTime)
 				{
-					destination.setText(tempDestination);
-				}
-				else
-				{
-					destination.setText("");
-				}
-				
-				if(!source.getText().toString().equals("") || !destination.getText().toString().equals(""))
-				{
-					tlTable.addView(row);
+					String tempSource = i.getTimeFromSource();
+					String tempDestination = i.getTimeFromDestination();
 					
-					isEmpty = false;
+					if(!isTimePassed(tempSource))
+					{
+						source.setText(tempSource);
+					}
+					else
+					{
+						source.setText("");
+					}
+					
+					if(!isTimePassed(tempDestination))
+					{
+						destination.setText(tempDestination);
+					}
+					else
+					{
+						destination.setText("");
+					}
+					
+					if(!source.getText().toString().equals("") || !destination.getText().toString().equals(""))
+					{
+						tlTable.addView(row);
+						
+						isEmpty = false;
+					}
 				}
+				else
+				{
+					source.setText(i.getTimeFromSource());
+					destination.setText(i.getTimeFromDestination());
+					
+					tlTable.addView(row);
+				}
+			}
+			
+			if(isClosestTime && isEmpty)
+			{
+				isClosestTime = false;
+				
+				AppMsg.makeText(this, getString(R.string.info_noClosestTime), AppMsg.STYLE_CONFIRM).show();
+				
+				updateInformation(bus);
+			}
+		}
+	}
+	
+	/**
+	 * Shows the remaining time to the given time if the given time has not passed yet
+	 * 
+	 * @param time Time as a string with format HH:MM
+	 */
+	@SuppressLint("SimpleDateFormat")
+	private void showRemainingTime(String time)
+	{
+		boolean isTimePassed = false;
+		
+		try
+		{
+			SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+			
+			String currentTime = format.format(new Date(System.currentTimeMillis()));
+			String[] currentTokens = currentTime.split(":");
+			
+			String givenTime = format.format(format.parse(time));
+			String[] givenTokens = givenTime.split(":");
+			
+			int currentHours = Integer.parseInt(currentTokens[0]);
+			int currentMinutes = Integer.parseInt(currentTokens[1]);
+			int givenHours = Integer.parseInt(givenTokens[0]);
+			int givenMinutes = Integer.parseInt(givenTokens[1]);
+			
+			if(givenHours < currentHours)
+			{
+				isTimePassed = true;
+			}
+			else if(givenHours == currentHours)
+			{
+				if(givenMinutes < currentMinutes)
+				{
+					isTimePassed = true;
+				}
+			}
+			
+			if(!isTimePassed)
+			{
+				int remainingHours = givenHours - currentHours;
+				int remainingMinutes = givenMinutes - currentMinutes;
+				
+				if(remainingMinutes < 0)
+				{
+					remainingHours--;
+					remainingMinutes += 60;
+				}
+				
+				AppMsg.makeText(this, getString(R.string.info_remainingTime, time, remainingHours, remainingMinutes), AppMsg.STYLE_INFO).show();
 			}
 			else
 			{
-				source.setText(i.getTimeFromSource());
-				destination.setText(i.getTimeFromDestination());
-				
-				tlTable.addView(row);
+				AppMsg.makeText(this, getString(R.string.info_selectedTimePassed), AppMsg.STYLE_CONFIRM).show();
 			}
 		}
-		
-		if(isClosestTime && isEmpty)
+		catch(Exception e)
 		{
-			isClosestTime = false;
-			
-			AppMsg.makeText(this, getString(R.string.info_noClosestTime), AppMsg.STYLE_CONFIRM).show();
-			
-			updateInformation(bus);
 		}
 	}
 	

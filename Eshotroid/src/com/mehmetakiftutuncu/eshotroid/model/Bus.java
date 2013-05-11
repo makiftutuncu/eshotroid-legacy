@@ -13,18 +13,18 @@ public class Bus
 	private String source;
 	private String destination;
 	private String route;
-	private boolean isStarred;
+	private boolean isFavorited;
 	private ArrayList<BusTime> timesH;
 	private ArrayList<BusTime> timesC;
 	private ArrayList<BusTime> timesP;
 	
-	public Bus(int number, String source, String destination, String route, boolean isStarred, ArrayList<BusTime> timesH, ArrayList<BusTime> timesC, ArrayList<BusTime> timesP)
+	public Bus(int number, String source, String destination, String route, boolean isFavorited, ArrayList<BusTime> timesH, ArrayList<BusTime> timesC, ArrayList<BusTime> timesP)
 	{
 		setNumber(number);
 		setSource(source);
 		setDestination(destination);
 		setRoute(route);
-		setStarred(isStarred);
+		setFavorited(isFavorited);
 		setTimesH(timesH);
 		setTimesC(timesC);
 		setTimesP(timesP);
@@ -70,14 +70,14 @@ public class Bus
 		this.route = route;
 	}
 	
-	public boolean isStarred()
+	public boolean isFavorited()
 	{
-		return isStarred;
+		return isFavorited;
 	}
 	
-	public void setStarred(boolean isStarred)
+	public void setFavorited(boolean isFavorited)
 	{
-		this.isStarred = isStarred;
+		this.isFavorited = isFavorited;
 	}
 	
 	public ArrayList<BusTime> getTimesH()

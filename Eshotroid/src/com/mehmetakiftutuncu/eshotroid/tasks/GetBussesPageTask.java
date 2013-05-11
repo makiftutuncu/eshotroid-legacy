@@ -1,4 +1,4 @@
-package com.mehmetakiftutuncu.eshotroid.utilities;
+package com.mehmetakiftutuncu.eshotroid.tasks;
 
 import java.util.ArrayList;
 
@@ -13,8 +13,12 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.mehmetakiftutuncu.eshotroid.Constants;
 import com.mehmetakiftutuncu.eshotroid.Main;
 import com.mehmetakiftutuncu.eshotroid.R;
+import com.mehmetakiftutuncu.eshotroid.adapters.BusListAdapter;
 import com.mehmetakiftutuncu.eshotroid.database.MyDatabase;
 import com.mehmetakiftutuncu.eshotroid.model.Bus;
+import com.mehmetakiftutuncu.eshotroid.utilities.Connection;
+import com.mehmetakiftutuncu.eshotroid.utilities.Parser;
+import com.mehmetakiftutuncu.eshotroid.utilities.Processor;
 
 /**
  * An asynchronous task for getting the busses page
@@ -23,12 +27,11 @@ import com.mehmetakiftutuncu.eshotroid.model.Bus;
  */
 public class GetBussesPageTask extends AsyncTask<Void, Void, Void> implements Runnable
 {
-	private Context context;
-	private PullToRefreshListView ptrList;
+	private Context myContext;
+	private PullToRefreshListView myPtrList;
+	
 	private ListAdapter oldAdapter;
-	
 	private ArrayList<Bus> busses;
-	
 	private String result;
 	
 	/**
@@ -38,8 +41,8 @@ public class GetBussesPageTask extends AsyncTask<Void, Void, Void> implements Ru
 	
 	public GetBussesPageTask(Context context, PullToRefreshListView ptrList)
 	{
-		this.context = context;
-		this.ptrList = ptrList;
+		myContext = context;
+		myPtrList = ptrList;
 		
 		((Main) context).toggleMode(true);
 		((Main) context).toggleHeader(true);
@@ -52,7 +55,7 @@ public class GetBussesPageTask extends AsyncTask<Void, Void, Void> implements Ru
 	@Override
 	protected Void doInBackground(Void... params)
 	{
-		result = Connection.getPage(context, Constants.BUSSES_URL);
+		result = Connection.getPage(myContext, Constants.BUSSES_URL);
 		
 		if(result != null)
 		{
@@ -66,7 +69,7 @@ public class GetBussesPageTask extends AsyncTask<Void, Void, Void> implements Ru
 			
 			if(busses != null)
 			{
-				MyDatabase db = new MyDatabase(context);
+				MyDatabase db = new MyDatabase(myContext);
 				db.openDB();
 				for(Bus i : busses)
 				{
@@ -76,7 +79,7 @@ public class GetBussesPageTask extends AsyncTask<Void, Void, Void> implements Ru
 			}
 		}
 		
-		new Handler(context.getMainLooper()).post(this);
+		new Handler(myContext.getMainLooper()).post(this);
 		
 		return null;
 	}
@@ -86,30 +89,30 @@ public class GetBussesPageTask extends AsyncTask<Void, Void, Void> implements Ru
 	{
 		if(result != null)
 		{
-			((Main) context).toggleHeader(false);
-			
 			if(busses != null)
 			{
-				AppMsg.makeText((Activity) context, context.getString(R.string.info_successful), AppMsg.STYLE_INFO).show();
+				AppMsg.makeText((Activity) myContext, myContext.getString(R.string.info_successful), AppMsg.STYLE_INFO).show();
 				
-				((Main) context).setBussesList(busses);
+				((Main) myContext).setBussesList(busses);
 				
-				ptrList.setAdapter(new BusListAdapter(context, busses));
+				((Main) myContext).toggleHeader(false);
+				
+				myPtrList.setAdapter(new BusListAdapter(myContext, busses));
 			}
 			else
 			{
 				// Downloaded but couldn't be parsed
-				
-				ptrList.setAdapter(oldAdapter);
+				((Main) myContext).toggleHeader(false);
+				myPtrList.setAdapter(oldAdapter);
 			}
 		}
 		else
 		{
-			AppMsg.makeText((Activity) context, context.getString(R.string.error_noConnection), AppMsg.STYLE_ALERT).show();
+			AppMsg.makeText((Activity) myContext, myContext.getString(R.string.error_noConnection), AppMsg.STYLE_ALERT).show();
 		}
 		
-		((Main) context).toggleMode(false);
+		((Main) myContext).toggleMode(false);
 		
-		ptrList.onRefreshComplete();
+		myPtrList.onRefreshComplete();
 	}
 }

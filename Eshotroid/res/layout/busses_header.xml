@@ -6,7 +6,7 @@
     android:padding="10dp" >
 
     <LinearLayout
-        android:id="@+id/linearLayout_starredLines"
+        android:id="@+id/linearLayout_favoritedBusses"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
@@ -16,11 +16,11 @@
             android:layout_height="wrap_content"
             android:drawableBottom="@drawable/horizontal_line"
             android:gravity="center"
-            android:text="@string/title_starredLines"
+            android:text="@string/title_favoritedBusses"
             android:textAppearance="@android:style/TextAppearance.Medium" />
 
         <com.mehmetakiftutuncu.eshotroid.utilities.ExpandableHeightGridView
-            android:id="@+id/gridView_starredLines_grid"
+            android:id="@+id/gridView_favoritedBusses_grid"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:drawableBottom="@drawable/horizontal_line"
         android:gravity="center"
-        android:text="@string/title_allLines"
+        android:text="@string/title_allBusses"
         android:textAppearance="@android:style/TextAppearance.Medium" />
 
 </LinearLayout>

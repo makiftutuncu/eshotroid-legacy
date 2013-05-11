@@ -4,4 +4,3 @@ Google Gson          - https://code.google.com/p/google-gson/
 ActionBarSherlock    - http://actionbarsherlock.com/
 Pull to Refresh      - https://github.com/chrisbanes/Android-PullToRefresh
 AppMsg               - http://johnkil.github.com/Android-AppMsg/
-PinnedHeaderListView - http://blog.peterkuterna.net/2011/05/pinned-header-listview-as-in-contacts.html

@@ -32,7 +32,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.mehmetakiftutuncu.eshotroid.database.MyDatabase;
 import com.mehmetakiftutuncu.eshotroid.model.Bus;
 import com.mehmetakiftutuncu.eshotroid.model.BusTime;
-import com.mehmetakiftutuncu.eshotroid.utilities.GetTimesPageTask;
+import com.mehmetakiftutuncu.eshotroid.tasks.GetTimesPageTask;
 
 /**
  * Times activity of the application
@@ -167,8 +167,6 @@ public class Times extends SherlockActivity
 	/**	Tries to download bus times */
 	private void downloadBusTimes()
 	{
-		Log.d(LOG_TAG, "Trying to download bus times for " + bus.getNumber() + type + " ...");
-		
 		GetTimesPageTask task = new GetTimesPageTask(this, ptrScrollView, bus, type);
 		task.execute();
 	}
@@ -187,15 +185,13 @@ public class Times extends SherlockActivity
 		
 		if(bus != null && ((type.equals("H") && bus.getTimesH() != null) || (type.equals("C") && bus.getTimesC() != null) || (type.equals("P") && bus.getTimesP() != null)))
 		{
-			Log.d(LOG_TAG, "Bus times for " + number + type + " already exist on the database.");
-			
 			toggleProgressBar(false);
 			
 			updateInformation(bus);
 		}
 		else
 		{
-			Log.d(LOG_TAG, "Bus times for " + number + type + " don't exist on the database.");
+			Log.d(LOG_TAG, "Bus times for " + number + type + " could not be found on the database!");
 			
 			downloadBusTimes();
 		}

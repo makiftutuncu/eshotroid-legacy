@@ -25,12 +25,12 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnPullEventListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.State;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.mehmetakiftutuncu.eshotroid.adapters.BusListAdapter;
+import com.mehmetakiftutuncu.eshotroid.adapters.FavoritedBusGridAdapter;
 import com.mehmetakiftutuncu.eshotroid.database.MyDatabase;
 import com.mehmetakiftutuncu.eshotroid.model.Bus;
-import com.mehmetakiftutuncu.eshotroid.utilities.BusListAdapter;
+import com.mehmetakiftutuncu.eshotroid.tasks.GetBussesPageTask;
 import com.mehmetakiftutuncu.eshotroid.utilities.ExpandableHeightGridView;
-import com.mehmetakiftutuncu.eshotroid.utilities.GetBussesPageTask;
-import com.mehmetakiftutuncu.eshotroid.utilities.StarredBusGridAdapter;
 
 /**
  * Main activity of the application
@@ -156,7 +156,7 @@ public class Main extends SherlockActivity
 		return busses;
 	}
 	
-	/** Updates the list header and adds the starred busses to the top */
+	/** Updates the list header and adds the favorited busses to the top */
 	public void updateListHeader()
 	{
 		if(header != null)
@@ -164,38 +164,36 @@ public class Main extends SherlockActivity
 			toggleHeader(true);
 		}
 		
-		ExpandableHeightGridView starredLinesGrid = (ExpandableHeightGridView) header.findViewById(R.id.gridView_starredLines_grid);
+		ExpandableHeightGridView favoritedBussesGrid = (ExpandableHeightGridView) header.findViewById(R.id.gridView_favoritedBusses_grid);
 		
-		starredLinesGrid.setExpanded(true);
+		favoritedBussesGrid.setExpanded(true);
 		
 		ptrList.getRefreshableView().addHeaderView(header, null, false);
 		
-		ArrayList<Bus> starred = new ArrayList<Bus>();
+		ArrayList<Bus> favorited = new ArrayList<Bus>();
 		
 		for(Bus i : busses)
 		{
-			if(i.isStarred())
+			if(i.isFavorited())
 			{
-				starred.add(i);
+				favorited.add(i);
 			}
 		}
 		
-		if(starred.size() > 0)
+		if(favorited.size() > 0)
 		{
-			starredLinesGrid.setAdapter(new StarredBusGridAdapter(this, starred));
-			header.findViewById(R.id.linearLayout_starredLines).setVisibility(View.VISIBLE);
+			favoritedBussesGrid.setAdapter(new FavoritedBusGridAdapter(this, favorited));
+			header.findViewById(R.id.linearLayout_favoritedBusses).setVisibility(View.VISIBLE);
 		}
 		else
 		{
-			header.findViewById(R.id.linearLayout_starredLines).setVisibility(View.GONE);
+			header.findViewById(R.id.linearLayout_favoritedBusses).setVisibility(View.GONE);
 		}
 	}
 	
 	/**	Tries to download busses */
 	private void downloadBusses()
 	{
-		Log.d(LOG_TAG, "Trying to download busses...");
-		
 		GetBussesPageTask task = new GetBussesPageTask(this, ptrList);
 		task.execute();
 	}
@@ -216,14 +214,12 @@ public class Main extends SherlockActivity
 		/* If no busses exist on the database */
 		if(busses.size() == 0)
 		{
-			Log.d(LOG_TAG, "Busses are not on the database.");
+			Log.d(LOG_TAG, "Busses could not be found on the database!");
 			
 			downloadBusses();
 		}
 		else
 		{
-			Log.d(LOG_TAG, "Busses are already on the database.");
-			
 			/* Change the UI to ready mode */
 			toggleMode(false);
 			toggleHeader(false);

@@ -30,8 +30,8 @@ public class MyDatabase implements IDatabaseOperations<Bus>
 	public static final String KEY_BUSSES_DESTINATION = "busDestination";
 	/** Key for the route of a bus */
 	public static final String KEY_BUSSES_ROUTE = "busRoute";
-	/** Key for the starred flag of a bus */
-	public static final String KEY_BUSSES_ISSTARRED = "busIsStarred";
+	/** Key for the favorited flag of a bus */
+	public static final String KEY_BUSSES_ISFAVORITED = "busIsFavorited";
 	/** Key for the weekday times of a bus */
 	public static final String KEY_BUSSES_TIMESH = "busTimesH";
 	/** Key for the saturday times of a bus */
@@ -53,7 +53,7 @@ public class MyDatabase implements IDatabaseOperations<Bus>
 											+ KEY_BUSSES_SOURCE + " TEXT NOT NULL, "
 											+ KEY_BUSSES_DESTINATION + " TEXT NOT NULL, "
 											+ KEY_BUSSES_ROUTE + " TEXT, "
-											+ KEY_BUSSES_ISSTARRED + " INTEGER NOT NULL, "
+											+ KEY_BUSSES_ISFAVORITED + " INTEGER NOT NULL, "
 											+ KEY_BUSSES_TIMESH + " TEXT, "
 											+ KEY_BUSSES_TIMESC + " TEXT, "
 											+ KEY_BUSSES_TIMESP + " TEXT);";
@@ -151,7 +151,7 @@ public class MyDatabase implements IDatabaseOperations<Bus>
 		values.put(KEY_BUSSES_SOURCE, entry.getSource());
 		values.put(KEY_BUSSES_DESTINATION, entry.getDestination());
 		values.put(KEY_BUSSES_ROUTE, (entry.getRoute() != null ? entry.getRoute() : ""));
-		values.put(KEY_BUSSES_ISSTARRED, (entry.isStarred() ? 1 : 0));
+		values.put(KEY_BUSSES_ISFAVORITED, (entry.isFavorited() ? 1 : 0));
 		values.put(KEY_BUSSES_TIMESH, (entry.getTimesH() != null ? new Gson().toJson(entry.getTimesH()) : ""));
 		values.put(KEY_BUSSES_TIMESC, (entry.getTimesC() != null ? new Gson().toJson(entry.getTimesC()) : ""));
 		values.put(KEY_BUSSES_TIMESP, (entry.getTimesP() != null ? new Gson().toJson(entry.getTimesP()) : ""));
@@ -193,7 +193,7 @@ public class MyDatabase implements IDatabaseOperations<Bus>
 			KEY_BUSSES_NUMBER,
 			KEY_BUSSES_SOURCE,
 			KEY_BUSSES_DESTINATION,
-			KEY_BUSSES_ISSTARRED
+			KEY_BUSSES_ISFAVORITED
 		};
 		
 		/* Cursor to query the database */
@@ -206,16 +206,16 @@ public class MyDatabase implements IDatabaseOperations<Bus>
 			int number;
 			String source;
 			String destination;
-			boolean isStarred;
+			boolean isFavorited;
 			
 			/* Get values for all fields */
 			number = cursor.getInt(cursor.getColumnIndex(KEY_BUSSES_NUMBER));
 			source = cursor.getString(cursor.getColumnIndex(KEY_BUSSES_SOURCE));
 			destination = cursor.getString(cursor.getColumnIndex(KEY_BUSSES_DESTINATION));
-			isStarred = (cursor.getInt(cursor.getColumnIndex(KEY_BUSSES_ISSTARRED)) == 1);
+			isFavorited = (cursor.getInt(cursor.getColumnIndex(KEY_BUSSES_ISFAVORITED)) == 1);
 			
 			/* Add the item to the resulting list */
-			list.add(new Bus(number, source, destination, null, isStarred, null, null, null));
+			list.add(new Bus(number, source, destination, null, isFavorited, null, null, null));
 		}
 		
 		/* Return the result */
@@ -234,7 +234,7 @@ public class MyDatabase implements IDatabaseOperations<Bus>
 			KEY_BUSSES_SOURCE,
 			KEY_BUSSES_DESTINATION,
 			KEY_BUSSES_ROUTE,
-			KEY_BUSSES_ISSTARRED,
+			KEY_BUSSES_ISFAVORITED,
 			KEY_BUSSES_TIMESH,
 			KEY_BUSSES_TIMESC,
 			KEY_BUSSES_TIMESP
@@ -256,7 +256,7 @@ public class MyDatabase implements IDatabaseOperations<Bus>
 				String source;
 				String destination;
 				String route;
-				boolean isStarred;
+				boolean isFavorited;
 				ArrayList<BusTime> timesH;
 				ArrayList<BusTime> timesC;
 				ArrayList<BusTime> timesP;
@@ -265,13 +265,13 @@ public class MyDatabase implements IDatabaseOperations<Bus>
 				source = cursor.getString(cursor.getColumnIndex(KEY_BUSSES_SOURCE));
 				destination = cursor.getString(cursor.getColumnIndex(KEY_BUSSES_DESTINATION));
 				route = cursor.getString(cursor.getColumnIndex(KEY_BUSSES_ROUTE));
-				isStarred = (cursor.getInt(cursor.getColumnIndex(KEY_BUSSES_ISSTARRED)) == 1);
+				isFavorited = (cursor.getInt(cursor.getColumnIndex(KEY_BUSSES_ISFAVORITED)) == 1);
 				timesH = new Gson().fromJson(cursor.getString(cursor.getColumnIndex(KEY_BUSSES_TIMESH)), new TypeToken<ArrayList<BusTime>>(){}.getType());
 				timesC = new Gson().fromJson(cursor.getString(cursor.getColumnIndex(KEY_BUSSES_TIMESC)), new TypeToken<ArrayList<BusTime>>(){}.getType());
 				timesP = new Gson().fromJson(cursor.getString(cursor.getColumnIndex(KEY_BUSSES_TIMESP)), new TypeToken<ArrayList<BusTime>>(){}.getType());
 				
 				/* Generate the resulting item */
-				item = new Bus(number, source, destination, route, isStarred, timesH, timesC, timesP);
+				item = new Bus(number, source, destination, route, isFavorited, timesH, timesC, timesP);
 			}
 		}
 		

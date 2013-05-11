@@ -11,7 +11,7 @@
     <string name="menu_rate">Oy Verin/Yorum Yapın</string>
     <string name="menu_contact">Geliştiriciye Ulaşın</string>
     <string name="menu_website">Geliştiricinin Web Sayfası</string>
-    <string name="menu_about">Hakkında</string>
+    <string name="menu_about">Uygulama Hakkında</string>
     
     <string name="pullToRefresh_pull">Yenilemek için kaydırın.</string>
     <string name="pullToRefresh_release">Yenilemek için bırakın.</string>
@@ -21,7 +21,7 @@
     <string name="info_successful">Başarılı!</string>
     <string name="info_noClosestTime">Sonraki sefer bulunamadı. Tüm seferler gösteriliyor.</string>
     
-    <string name="title_starredLines">Yıldızlanmış Hatlar</string>
-    <string name="title_allLines">Tüm Hatlar</string>
+    <string name="title_favoritedBusses">Sık Kullanılan Otobüsler</string>
+    <string name="title_allBusses">Tüm Otobüsler</string>
 
 </resources>

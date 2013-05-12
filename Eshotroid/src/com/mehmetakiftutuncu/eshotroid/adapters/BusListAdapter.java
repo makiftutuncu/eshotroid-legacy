@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Set;
 
 import android.content.Context;
@@ -15,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Filter;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
@@ -29,7 +31,8 @@ public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 	private Context myContext;
 	private HashMap<String, Integer> myIndexer;
 	private String[] mySections;
-	private ArrayList<Bus> myItems;
+	private ArrayList<Bus> myOriginalItems;
+	private ArrayList<Bus> myCurrentItems;
 	
 	/**
 	 * Tag for debugging
@@ -48,9 +51,82 @@ public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 		super(context, R.layout.busses_row, items);
 		
 		myContext = context;
-		myItems = items;
+		myOriginalItems = items;
+		myCurrentItems = new ArrayList<Bus>();
+		myCurrentItems.addAll(myOriginalItems);
 		
 		updateSectionlist();
+	}
+	
+	@Override
+	public Filter getFilter()
+	{
+		return new Filter()
+		{
+			@Override
+			protected FilterResults performFiltering(CharSequence constraint)
+			{
+				FilterResults result = new FilterResults();
+				
+				if(constraint != null && constraint.toString().length() > 0)
+				{
+					Locale trLocale = new Locale("tr");
+					constraint = constraint.toString().toLowerCase(trLocale);
+					
+					ArrayList<Bus> filteredItems = new ArrayList<Bus>();
+					
+					for(int i = 0, l = myOriginalItems.size(); i < l; i++)
+					{
+						Bus bus = myOriginalItems.get(i);
+						
+						/* Custom search logic here; bus number, source, destination and route are checked for matching */
+						String number = String.valueOf(bus.getNumber());
+						String source = bus.getSource() != null ? bus.getSource() : "";
+						String destination = bus.getDestination() != null ? bus.getDestination() : "";
+						String route = bus.getRoute() != null ? bus.getRoute() : "";
+						
+						if(	number.contains(constraint) ||
+							source.toLowerCase(trLocale).contains(constraint) ||
+							destination.toLowerCase(trLocale).contains(constraint) ||
+							route.toLowerCase(trLocale).contains(constraint))
+						{
+							filteredItems.add(bus);
+						}
+					}
+					
+					result.count = filteredItems.size();
+					result.values = filteredItems;
+				}
+				else
+				{
+					result.count = -1;
+				}
+				
+				return result;
+			}
+
+			@SuppressWarnings("unchecked")
+			@Override
+			protected void publishResults(CharSequence constraint, FilterResults results)
+			{
+				if(results != null && results.count >= 0)
+				{
+					myCurrentItems = (ArrayList<Bus>) results.values;
+				}
+				else
+				{
+					myCurrentItems = myOriginalItems;
+				}
+				
+				notifyDataSetInvalidated();
+			}
+		};
+	}
+	
+	@Override
+	public int getCount()
+	{
+		return myCurrentItems != null ? myCurrentItems.size() : 0;
 	}
 	
 	@Override
@@ -75,7 +151,7 @@ public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 		
 		ViewHolder holder = (ViewHolder) row.getTag();
 		
-		final Bus bus = myItems.get(position);
+		final Bus bus = myCurrentItems.get(position);
 		
 		holder.favorite.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
@@ -139,11 +215,11 @@ public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 	public void updateSectionlist()
 	{
 		myIndexer = new HashMap<String, Integer>();
-		int size = myItems.size();
+		int size = myCurrentItems.size();
 
 		for(int i = 0; i < size; i++)
 		{
-			myIndexer.put("" + myItems.get(i).getNumber(), i);
+			myIndexer.put("" + myCurrentItems.get(i).getNumber(), i);
 		}
 
 		Set<String> sectionLetters = myIndexer.keySet();

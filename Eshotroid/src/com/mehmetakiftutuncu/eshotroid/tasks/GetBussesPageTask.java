@@ -45,7 +45,6 @@ public class GetBussesPageTask extends AsyncTask<Void, Void, Void> implements Ru
 		myPtrList = ptrList;
 		
 		((Main) context).toggleMode(true);
-		((Main) context).toggleHeader(true);
 		
 		oldAdapter = ptrList.getRefreshableView().getAdapter();
 		
@@ -95,14 +94,11 @@ public class GetBussesPageTask extends AsyncTask<Void, Void, Void> implements Ru
 				
 				((Main) myContext).setBussesList(busses);
 				
-				((Main) myContext).toggleHeader(false);
-				
 				myPtrList.setAdapter(new BusListAdapter(myContext, busses));
 			}
 			else
 			{
 				// Downloaded but couldn't be parsed
-				((Main) myContext).toggleHeader(false);
 				myPtrList.setAdapter(oldAdapter);
 			}
 		}

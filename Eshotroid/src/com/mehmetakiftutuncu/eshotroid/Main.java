@@ -3,11 +3,11 @@ package com.mehmetakiftutuncu.eshotroid;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SearchViewCompat;
-import android.support.v4.widget.SearchViewCompat.OnQueryTextListenerCompat;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +19,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.SearchView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnPullEventListener;
@@ -43,7 +44,6 @@ public class Main extends SherlockActivity
 	private ProgressBar progressBar;
 	private LinearLayout header;
 	
-	private String searchQuery;
 	private BusListAdapter busListAdapter;
 	
 	private ArrayList<Bus> busses;
@@ -62,31 +62,59 @@ public class Main extends SherlockActivity
 		initialize();
 		
 		loadBusses();
+		
+		updateListHeader();
+	}
+	
+	/* When user initiates a search, Main activity will be called
+	 * with a new intent with Intent.ACTION_SEARCH as action
+	 * and an extra value which is query string */
+	@Override
+	protected void onNewIntent(Intent intent)
+	{
+		setIntent(intent);
+		
+		if(Intent.ACTION_SEARCH.equals(intent.getAction()))
+		{
+			String query = intent.getStringExtra(SearchManager.QUERY);
+			
+			searchBusses(query);
+		}
 	}
 	
 	@Override
     public boolean onCreateOptionsMenu(Menu menu)
 	{
-		View searchView = SearchViewCompat.newSearchView(getSupportActionBar().getThemedContext());
+		SearchView searchView = new SearchView(getSherlock().getActionBar().getThemedContext());
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
+		searchView.setSearchableInfo(info);
+		
+		searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+		{
+			@Override
+			public boolean onQueryTextSubmit(String query)
+			{
+				/* Since the query will be performed when the text changes, when submitted just indicate that it was handled */
+				return true;
+			}
+			
+			@Override
+			public boolean onQueryTextChange(String query)
+			{
+				searchBusses(query);
+				
+				return true;
+			}
+		});
 		
 		menu.add("item_search")
 			.setIcon(R.drawable.ic_search)
-        	.setActionView(searchView)
-        	.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+	    	.setActionView(searchView)
+	    	.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 		
 		MenuInflater inflater = getSherlock().getMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
-        
-        SearchViewCompat.setOnQueryTextListener(searchView, new OnQueryTextListenerCompat()
-        {
-        	@Override
-        	public boolean onQueryTextChange(String newText)
-        	{
-        		searchQuery = !TextUtils.isEmpty(newText) ? newText : null;
-        		busListAdapter.getFilter().filter(searchQuery);
-        		return true;
-        	}
-        });
 
         return true;
     }
@@ -127,13 +155,10 @@ public class Main extends SherlockActivity
 			}
 		});
 		ptrList.setScrollingWhileRefreshingEnabled(false);
-		
-		if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB)
-		{
-			ptrList.getRefreshableView().setFastScrollAlwaysVisible(true);
-		}
+		ptrList.getRefreshableView().setTextFilterEnabled(true);
 		
 		header = (LinearLayout) getLayoutInflater().inflate(R.layout.busses_header, null);
+		ptrList.getRefreshableView().addHeaderView(header, null, false);
 		
 		progressBar = (ProgressBar) findViewById(R.id.progressBar_main);
 	}
@@ -159,16 +184,8 @@ public class Main extends SherlockActivity
 	/** Updates the list header and adds the favorited busses to the top */
 	public void updateListHeader()
 	{
-		if(header != null)
-		{
-			toggleHeader(true);
-		}
-		
 		ExpandableHeightGridView favoritedBussesGrid = (ExpandableHeightGridView) header.findViewById(R.id.gridView_favoritedBusses_grid);
-		
 		favoritedBussesGrid.setExpanded(true);
-		
-		ptrList.getRefreshableView().addHeaderView(header, null, false);
 		
 		ArrayList<Bus> favorited = new ArrayList<Bus>();
 		
@@ -191,6 +208,14 @@ public class Main extends SherlockActivity
 		}
 	}
 	
+	/**	Searches busses with the given query */
+	private void searchBusses(String query)
+	{
+		busListAdapter.getFilter().filter(query);
+		busListAdapter.notifyDataSetChanged();
+		busListAdapter.updateSectionlist();
+	}
+	
 	/**	Tries to download busses */
 	private void downloadBusses()
 	{
@@ -203,7 +228,6 @@ public class Main extends SherlockActivity
 	{
 		/* Change the UI to waiting mode */
 		toggleMode(true);
-		toggleHeader(true);
 		
 		/* Read busses from the database */
 		MyDatabase db = new MyDatabase(this);
@@ -222,28 +246,10 @@ public class Main extends SherlockActivity
 		{
 			/* Change the UI to ready mode */
 			toggleMode(false);
-			toggleHeader(false);
 			
 			/* Fill the list */
 			busListAdapter = new BusListAdapter(this, busses);
 			ptrList.setAdapter(busListAdapter);
-		}
-	}
-	
-	/**
-	 * Toggles the list header
-	 * 
-	 * @param isGone If true, the header will be removed, else it will be updated and re-added
-	 */
-	public void toggleHeader(boolean isGone)
-	{
-		if(isGone)
-		{
-			ptrList.getRefreshableView().removeHeaderView(header);
-		}
-		else
-		{
-			updateListHeader();
 		}
 	}
 	
@@ -257,10 +263,12 @@ public class Main extends SherlockActivity
 		if(isWaiting)
 		{
 			progressBar.setVisibility(View.VISIBLE);
+			ptrList.getRefreshableView().setVisibility(View.GONE);
 		}
 		else
 		{
 			progressBar.setVisibility(View.GONE);
+			ptrList.getRefreshableView().setVisibility(View.VISIBLE);
 		}
 	}
 }

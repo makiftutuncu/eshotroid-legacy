@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -34,7 +35,9 @@ import com.mehmetakiftutuncu.eshotroid.adapters.FavoritedBusGridAdapter;
 import com.mehmetakiftutuncu.eshotroid.database.MyDatabase;
 import com.mehmetakiftutuncu.eshotroid.model.Bus;
 import com.mehmetakiftutuncu.eshotroid.tasks.GetBussesPageTask;
+import com.mehmetakiftutuncu.eshotroid.utilities.Dialogs;
 import com.mehmetakiftutuncu.eshotroid.utilities.ExpandableHeightGridView;
+import com.mehmetakiftutuncu.eshotroid.utilities.MenuHandler;
 
 /**
  * Main activity of the application
@@ -50,6 +53,8 @@ public class Main extends SherlockActivity
 	private BusListAdapter busListAdapter;
 	
 	private ArrayList<Bus> busses;
+	
+	private Menu moreMenu;
 	
 	/**
 	 * Tag for debugging
@@ -67,6 +72,8 @@ public class Main extends SherlockActivity
 		loadBusses();
 		
 		updateListHeader();
+		
+		Dialogs.showMainHelpDialog(this, false);
 	}
 	
 	/* When user initiates a search, Main activity will be called
@@ -88,6 +95,8 @@ public class Main extends SherlockActivity
 	@Override
     public boolean onCreateOptionsMenu(Menu menu)
 	{
+		moreMenu = menu;
+		
 		final SearchView searchView = new SearchView(getSherlock().getActionBar().getThemedContext());
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 		
@@ -148,12 +157,32 @@ public class Main extends SherlockActivity
 	@Override
 	public boolean onMenuItemSelected(int featureId, android.view.MenuItem item)
 	{
-		if(item.getItemId() == android.R.id.home)
+		switch(item.getItemId())
 		{
-			searchBusses(null);
+			case android.R.id.home:
+				searchBusses(null);
+				return true;
+				
+			default:
+				MenuHandler.handle(this, item);
+				return true;
+		}
+	}
+	
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event)
+	{
+		if(keyCode == KeyEvent.KEYCODE_MENU)
+		{
+			if (event.getAction() == KeyEvent.ACTION_UP && moreMenu != null)
+			{
+				moreMenu.performIdentifierAction(R.id.item_more, 0);
+				
+				return true;
+			}
 		}
 		
-		return false;
+		return super.onKeyUp(keyCode, event);
 	}
 	
 	/**	Initializes components */

@@ -35,6 +35,8 @@ import com.mehmetakiftutuncu.eshotroid.database.MyDatabase;
 import com.mehmetakiftutuncu.eshotroid.model.Bus;
 import com.mehmetakiftutuncu.eshotroid.model.BusTime;
 import com.mehmetakiftutuncu.eshotroid.tasks.GetTimesPageTask;
+import com.mehmetakiftutuncu.eshotroid.utilities.Dialogs;
+import com.mehmetakiftutuncu.eshotroid.utilities.MenuHandler;
 
 /**
  * Times activity of the application
@@ -80,6 +82,8 @@ public class Times extends SherlockActivity
 		initialize();
 		
 		loadBusTimes();
+		
+		Dialogs.showTimesHelpDialog(this, false);
 	}
 	
 	@Override
@@ -112,15 +116,17 @@ public class Times extends SherlockActivity
 			updateInformation(bus);
 			
 			ptrScrollView.getRefreshableView().scrollTo(0, 0);
-			
-			return true;
 		}
-		if(item.getItemId() == android.R.id.home)
+		else if(item.getItemId() == android.R.id.home)
 		{
 			finish();
 		}
+		else
+		{
+			MenuHandler.handle(this, item);
+		}
 		
-		return false;
+		return true;
 	}
 	
 	/**	Initializes components */

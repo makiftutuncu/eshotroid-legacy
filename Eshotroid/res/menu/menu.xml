@@ -13,11 +13,6 @@
                 android:title="@string/menu_rate">
             </item>
             <item
-                android:id="@+id/item_share"
-                android:icon="@drawable/ic_share"
-                android:title="@string/menu_share">
-            </item>
-            <item
                 android:id="@+id/item_contact"
                 android:icon="@drawable/ic_contact"
                 android:title="@string/menu_contact">
@@ -26,6 +21,11 @@
                 android:id="@+id/item_website"
                 android:icon="@drawable/ic_website"
                 android:title="@string/menu_website">
+            </item>
+            <item
+                android:id="@+id/item_help"
+                android:icon="@drawable/ic_help"
+                android:title="@string/menu_help">
             </item>
             <item
                 android:id="@+id/item_about"

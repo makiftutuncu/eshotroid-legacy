@@ -104,8 +104,40 @@ public class Times extends SherlockActivity
         return true;
     }
 	
+	/*
 	@Override
 	public boolean onMenuItemSelected(int featureId, android.view.MenuItem item)
+	{
+		if(item.getTitle().equals("item_closesttime"))
+		{
+			if(isClosestTime)
+			{
+				isClosestTime = false;
+			}
+			else
+			{
+				isClosestTime = true;
+			}
+			
+			updateInformation(bus);
+			
+			ptrScrollView.getRefreshableView().scrollTo(0, 0);
+		}
+		else if(item.getItemId() == android.R.id.home)
+		{
+			finish();
+		}
+		else
+		{
+			MenuHandler.handle(this, item);
+		}
+		
+		return true;
+	}
+	*/
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		if(item.getTitle().equals("item_closesttime"))
 		{

@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.view.MenuItem;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.mehmetakiftutuncu.eshotroid.Constants;
 import com.mehmetakiftutuncu.eshotroid.Main;
 import com.mehmetakiftutuncu.eshotroid.R;
@@ -37,7 +37,7 @@ public class MenuHandler
 				Intent intentContact = new Intent(Intent.ACTION_SEND);
 				intentContact.setType("plain/text");
 				intentContact.putExtra(Intent.EXTRA_EMAIL, new String[] {Constants.CONTACT});
-				intentContact.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.app_name));
+				intentContact.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.contact_subject));
 				context.startActivity(Intent.createChooser(intentContact, context.getString(R.string.menu_contact)));
 				break;
 				

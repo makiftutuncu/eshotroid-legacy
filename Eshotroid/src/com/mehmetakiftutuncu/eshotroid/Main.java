@@ -154,8 +154,26 @@ public class Main extends SherlockActivity
         return true;
     }
 	
+	/*
 	@Override
 	public boolean onMenuItemSelected(int featureId, android.view.MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+			// SearchView is collapsing, list all the busses again.
+			case android.R.id.home:
+				searchBusses(null);
+				return true;
+				
+			default:
+				MenuHandler.handle(this, item);
+				return true;
+		}
+	}
+	*/
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
 	{
 		switch(item.getItemId())
 		{
@@ -287,8 +305,11 @@ public class Main extends SherlockActivity
 	/**	Searches busses with the given query */
 	private void searchBusses(String query)
 	{
-		busListAdapter.getFilter().filter(query);
-		busListAdapter.notifyDataSetChanged();
+		if(busListAdapter != null && busListAdapter.getFilter() != null)
+		{
+			busListAdapter.getFilter().filter(query);
+			busListAdapter.notifyDataSetChanged();
+		}
 	}
 	
 	/**	Tries to download busses */

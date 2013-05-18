@@ -58,7 +58,7 @@ public class Dialogs
 	 * 
 	 * @param context Context of the activity
 	 */
-	public static void showAboutDialog(Context context)
+	public static void showAboutDialog(final Context context)
 	{
 		AlertDialog dialog;
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);

@@ -10,15 +10,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
 import com.actionbarsherlock.widget.SearchView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
@@ -85,8 +88,9 @@ public class Main extends SherlockActivity
 	@Override
     public boolean onCreateOptionsMenu(Menu menu)
 	{
-		SearchView searchView = new SearchView(getSherlock().getActionBar().getThemedContext());
+		final SearchView searchView = new SearchView(getSherlock().getActionBar().getThemedContext());
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		
 		SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
 		searchView.setSearchableInfo(info);
 		
@@ -95,7 +99,12 @@ public class Main extends SherlockActivity
 			@Override
 			public boolean onQueryTextSubmit(String query)
 			{
-				/* Since the query will be performed when the text changes, when submitted just indicate that it was handled */
+				/* Since the query will be performed when the text changes,
+				 * when submitted just request focus to hide keyboard
+				 * and then indicate that it was handled */
+				InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+				
 				return true;
 			}
 			
@@ -108,16 +117,44 @@ public class Main extends SherlockActivity
 			}
 		});
 		
-		menu.add("item_search")
-			.setIcon(R.drawable.ic_search)
-	    	.setActionView(searchView)
-	    	.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+		MenuItem searchItem = menu.add("item_search").setIcon(R.drawable.ic_search).setActionView(searchView);
+		
+		searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+		
+		searchItem.setOnActionExpandListener(new OnActionExpandListener()
+		{
+			@Override
+			public boolean onMenuItemActionExpand(MenuItem item)
+			{
+				return true;
+			}
+			
+			@Override
+			public boolean onMenuItemActionCollapse(MenuItem item)
+			{
+				// SearchView is collapsing, list all the busses again.
+				searchBusses(null);
+				
+				return true;
+			}
+		});
 		
 		MenuInflater inflater = getSherlock().getMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
 
         return true;
     }
+	
+	@Override
+	public boolean onMenuItemSelected(int featureId, android.view.MenuItem item)
+	{
+		if(item.getItemId() == android.R.id.home)
+		{
+			searchBusses(null);
+		}
+		
+		return false;
+	}
 	
 	/**	Initializes components */
 	@SuppressLint("NewApi")
@@ -131,10 +168,10 @@ public class Main extends SherlockActivity
 			@Override
 			public void onItemClick(AdapterView<?> adapter, View view, int position, long id)
 			{
-				Bus bus = (Bus) adapter.getItemAtPosition(position);
+				String number = ((TextView) view.findViewById(R.id.textView_busses_row_number)).getText().toString();
 				
 				Intent intent = new Intent(Main.this, Times.class);
-				intent.putExtra(Constants.BUS_NUMBER_EXTRA, bus.getNumber());
+				intent.putExtra(Constants.BUS_NUMBER_EXTRA, Integer.parseInt(number));
 				startActivity(intent);
 			}
 		});
@@ -181,6 +218,11 @@ public class Main extends SherlockActivity
 		return busses;
 	}
 	
+	public BusListAdapter getBusListAdapter()
+	{
+		return busListAdapter;
+	}
+	
 	/** Updates the list header and adds the favorited busses to the top */
 	public void updateListHeader()
 	{
@@ -213,7 +255,6 @@ public class Main extends SherlockActivity
 	{
 		busListAdapter.getFilter().filter(query);
 		busListAdapter.notifyDataSetChanged();
-		busListAdapter.updateSectionlist();
 	}
 	
 	/**	Tries to download busses */

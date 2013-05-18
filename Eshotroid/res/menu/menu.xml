@@ -5,12 +5,17 @@
         android:id="@+id/item_more"
         android:icon="@drawable/ic_overflow"
         android:title="@string/menu_more"
-        android:showAsAction="always">
+        android:showAsAction="ifRoom">
         <menu>
             <item
                 android:id="@+id/item_rate"
                 android:icon="@drawable/ic_rate"
                 android:title="@string/menu_rate">
+            </item>
+            <item
+                android:id="@+id/item_share"
+                android:icon="@drawable/ic_share"
+                android:title="@string/menu_share">
             </item>
             <item
                 android:id="@+id/item_contact"

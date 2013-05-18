@@ -12,6 +12,7 @@
     
     <string name="menu_more">Daha Fazla</string>
     <string name="menu_rate">Oy Verin/Yorum Yapın</string>
+    <string name="menu_share">Uygulamayı Paylaşın</string>
     <string name="menu_contact">Geliştiriciye Ulaşın</string>
     <string name="menu_website">Geliştiricinin Web Sayfası</string>
     <string name="menu_about">Uygulama Hakkında</string>

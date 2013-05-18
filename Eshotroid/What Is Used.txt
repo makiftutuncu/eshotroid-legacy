@@ -1,6 +1,6 @@
 Used Libraries/Projects
 
-Google Gson          - https://code.google.com/p/google-gson/
-ActionBarSherlock    - http://actionbarsherlock.com/
-Pull to Refresh      - https://github.com/chrisbanes/Android-PullToRefresh
-AppMsg               - http://johnkil.github.com/Android-AppMsg/
+Google Gson			- https://code.google.com/p/google-gson/
+ActionBarSherlock	- http://actionbarsherlock.com/
+Pull to Refresh		- https://github.com/chrisbanes/Android-PullToRefresh
+AppMsg				- http://johnkil.github.com/Android-AppMsg/

@@ -215,11 +215,11 @@ public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 	public void updateSectionlist()
 	{
 		myIndexer = new HashMap<String, Integer>();
-		int size = myCurrentItems.size();
+		int size = myOriginalItems.size();
 
 		for(int i = 0; i < size; i++)
 		{
-			myIndexer.put("" + myCurrentItems.get(i).getNumber(), i);
+			myIndexer.put("" + myOriginalItems.get(i).getNumber(), i);
 		}
 
 		Set<String> sectionLetters = myIndexer.keySet();

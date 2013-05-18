@@ -111,7 +111,13 @@ public class Times extends SherlockActivity
 			
 			updateInformation(bus);
 			
+			ptrScrollView.getRefreshableView().scrollTo(0, 0);
+			
 			return true;
+		}
+		if(item.getItemId() == android.R.id.home)
+		{
+			finish();
 		}
 		
 		return false;
@@ -164,6 +170,8 @@ public class Times extends SherlockActivity
 				loadBusTimes();
 			}
 		});
+		
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 	
 	/**	Tries to download bus times */

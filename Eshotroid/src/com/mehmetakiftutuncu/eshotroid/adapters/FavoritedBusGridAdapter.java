@@ -105,6 +105,7 @@ public class FavoritedBusGridAdapter extends ArrayAdapter<Bus>
 						bussesList.get(i).setFavorited(false);
 						
 						((Main) myContext).updateListHeader();
+						((Main) myContext).getBusListAdapter().notifyDataSetChanged();
 						
 						MyDatabase db = new MyDatabase(myContext);
 						db.openDB();

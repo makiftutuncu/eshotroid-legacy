@@ -2,19 +2,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <ImageView
-        android:id="@+id/imageView_main_banner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/eshot_banner" />
-
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/pullToRefreshListView_main_busses"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/imageView_main_banner"
+        android:layout_centerInParent="true"
         android:layout_margin="5dp"
         android:fastScrollEnabled="true"
         android:smoothScrollbar="true"

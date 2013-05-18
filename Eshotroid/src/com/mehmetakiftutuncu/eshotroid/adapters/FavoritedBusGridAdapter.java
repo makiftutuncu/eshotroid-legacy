@@ -22,11 +22,19 @@ import com.mehmetakiftutuncu.eshotroid.Times;
 import com.mehmetakiftutuncu.eshotroid.database.MyDatabase;
 import com.mehmetakiftutuncu.eshotroid.model.Bus;
 
+/**
+ * Favorited bus grid list adapter class is the adapter that supplies the favorited bus list with items from an ArrayList of Bus items
+ * 
+ * @author Mehmet Akif Tütüncü
+ */
 public class FavoritedBusGridAdapter extends ArrayAdapter<Bus>
 {
 	private Context myContext;
 	private ArrayList<Bus> myItems;
 	
+	/**
+	 * Holder class for each item
+	 */
 	static class ViewHolder
 	{
 		public Button button;

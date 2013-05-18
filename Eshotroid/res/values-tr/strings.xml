@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Eshotroid</string>
+    
+    <string name="weekDay">Hafta İçi</string>
+    <string name="saturday">Cumartesi</string>
+    <string name="sunday">Pazar</string>
+    
+    <string name="search_label">Otobüs Arama</string>
+    <string name="search_hint">Otobüs Numarası/Konumu</string>
+    
+    <string name="menu_more">Daha Fazla</string>
+    <string name="menu_rate">Oy Verin/Yorum Yapın</string>
+    <string name="menu_contact">Geliştiriciye Ulaşın</string>
+    <string name="menu_website">Geliştiricinin Web Sayfası</string>
+    <string name="menu_help">Yardım</string>
+    <string name="menu_about">Uygulama Hakkında</string>
+    
+    <string name="pullToRefresh_pull">Yenilemek için kaydırın.</string>
+    <string name="pullToRefresh_release">Yenilemek için bırakın.</string>
+    <string name="pullToRefresh_refresh">Yenileniyor&#8230;</string>
+    
+    <string name="error_noConnection">İnternet bağlantısı yok!</string>
+    <string name="info_successful">Başarılı!</string>
+    <string name="info_noTimes">Belirtilen gün için sefer bulunamadı.</string>
+    <string name="info_noClosestTime">Sonraki sefer bulunamadı. Tüm seferler gösteriliyor.</string>
+    <string name="info_selectedTimePassed">Seçtiğiniz otobüsün saati geçmiş.</string>
+    <string name="info_remainingTime">%1$s otobüsüne %2$d saat %3$d dakika zaman var.</string>
+    
+    <string name="title_favoritedBusses">Sık Kullanılan Otobüsler</string>
+    <string name="title_allBusses">Tüm Otobüsler</string>
+    
+    <string name="help_title">Eshotroid Yardımı</string>
+    <string name="help_ok">Tamam</string>
+    <string name="help_main_content">Eshotroid ile otobüs saatlerini kolayca öğrenebilirsiniz. İndirilen her içerik kaydedileceğinden yalnızca otobüs listesini indirirken ve bir otobüsün saatlerine ilk kez bakarken internet bağlantısı gerekmektedir.\n\n* Aradığınız otobüse kolayca ulaşmak için sağ üst köşedeki arama düğmesini kullanabilir ya da sık kullandığınız otobüsleri işaretleyip sık kullanılanlar listesine ekleyebilirsiniz.\n\n* Bir otobüsü sık kullanılanlar listesine eklemek için yanındaki yıldıza dokunabilirsiniz.\n\n* Bir otobüsü sık kullanılanlar listesinden kaldırmak için yanındaki yıldıza tekrar dokunabilir ya da sık kullanılanlar listesindeki düğmesine dokunup bekleyebilirsiniz.\n\n* Sık kullanılanlar listesine eklediğiniz otobüsler için saatler (internet bağlantısı varsa) arka planda kendiliğinden indirilir.\n\n* Otobüs listesini yeniden indirmek isterseniz listenin başındayken listeyi aşağı doğru sürükleyip bırakabilirsiniz.</string>
+    <string name="help_times_content">Bu sayfada seçtiğiniz otobüsün saatlerini görebilirsiniz.\n\n* Başka bir güne ait saatleri görmek için seçimi değiştirebilirsiniz. Eshotroid, varsayılan olarak şu anda hangi gündeyseniz ona uygun olan seçeneği seçmektedir.\n\n* Herhangi bir saatin üzerine dokunarak o saatteki otobüse ne kadar zaman kaldığını görebilirsiniz.\n\n* Tüm saatleri göstermek ya da en yakın saatten başlayarak geri kalan saatleri göstermek için sağ üstteki saat simgesine dokunabilirsiniz. Eshotroid, saatleri varsayılan olarak en yakın saatten başlayarak göstermektedir.\n\n* Seçilen gün için saatleri yeniden indirmek isterseniz listenin başındayken listeyi aşağı doğru sürükleyip bırakabilirsiniz.</string>
+    
+    <string name="about_title">Eshotroid %1$s Hakkında</string>
+    <string name="about_content">&lt;p&gt;Bu uygulama &lt;a href=\"http://www.eshot.gov.tr\"&gt;Eshot Genel Müdürlüğü&lt;/a&gt;nden tamamen bağımsız olarak Mehmet Akif Tütüncü tarafından geliştirilmiştir.&lt;/p&gt;&lt;p&gt;Uygulamadaki tüm otobüs bilgileri &lt;a href=\"http://mobil.eshot.gov.tr\"&gt;http://mobil.eshot.gov.tr&lt;/a&gt; üzerinden indirilmektedir. Geliştirici bilgilerin doğruluğunu kesinlikle garanti etmemekte ve uygulamanın kullanımıyla ilgili geliştiriciye ait hiçbir sorumluluk bulunmamaktadır.&lt;/p&gt;&lt;p&gt;Uygulama tamamen ücretsizdir. Dilediğiniz gibi kullanabilirsiniz.&lt;/p&gt;&lt;p&gt;Uygulamanın kaynak kodlarına erişmek istiyorsanız geliştiriciye bu konuda bir e-posta gönderebilirsiniz.&lt;/p&gt;&lt;p&gt;Lütfen görüşlerinizi, önerilerinizi ve aldığınız hataları geliştiriciye bildiriniz.&lt;/p&gt;Otobüsünüzü hiç kaçırmamanız dileğiyle&#8230; :)&lt;/p&gt;</string>
+    <string name="about_ok">Tamam</string>
+
+</resources>

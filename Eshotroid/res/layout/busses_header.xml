@@ -7,12 +7,12 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_favoritedBusses"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <TextView
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableBottom="@drawable/horizontal_line"
             android:gravity="center"
@@ -21,7 +21,7 @@
 
         <com.mehmetakiftutuncu.eshotroid.utilities.ExpandableHeightGridView
             android:id="@+id/gridView_favoritedBusses_grid"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:numColumns="4"
@@ -30,7 +30,7 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableBottom="@drawable/horizontal_line"
         android:gravity="center"

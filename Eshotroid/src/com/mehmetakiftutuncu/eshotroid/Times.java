@@ -8,6 +8,7 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,6 +63,8 @@ public class Times extends SherlockActivity
 	
 	private boolean isClosestTime;
 	
+	private Menu moreMenu;
+	
 	/**
 	 * Tag for debugging
 	 */
@@ -89,6 +92,8 @@ public class Times extends SherlockActivity
 	@Override
     public boolean onCreateOptionsMenu(Menu menu)
 	{
+		moreMenu = menu;
+		
 		menu.add("item_closesttime")
 		.setIcon(R.drawable.ic_closesttime)
     	.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -127,6 +132,23 @@ public class Times extends SherlockActivity
 		}
 		
 		return true;
+	}
+	
+	// Using onKeyUp instead of onKeyDown is working, otherwise the menu would just close itself after opening
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event)
+	{
+		if(keyCode == KeyEvent.KEYCODE_MENU)
+		{
+			if (event.getAction() == KeyEvent.ACTION_UP && moreMenu != null)
+			{
+				moreMenu.performIdentifierAction(R.id.item_more, 0);
+				
+				return true;
+			}
+		}
+		
+		return super.onKeyUp(keyCode, event);
 	}
 	
 	/**	Initializes components */

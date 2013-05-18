@@ -18,6 +18,12 @@ import com.mehmetakiftutuncu.eshotroid.Times;
  */
 public class MenuHandler
 {
+	/**
+	 * Handle the menu item click
+	 * 
+	 * @param context Context of the activity
+	 * @param item Menu item that is clicked
+	 */
 	public static void handle(Context context, MenuItem item)
 	{
 		switch(item.getItemId())

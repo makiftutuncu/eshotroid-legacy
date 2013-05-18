@@ -159,6 +159,7 @@ public class Main extends SherlockActivity
 	{
 		switch(item.getItemId())
 		{
+			// SearchView is collapsing, list all the busses again.
 			case android.R.id.home:
 				searchBusses(null);
 				return true;
@@ -169,6 +170,7 @@ public class Main extends SherlockActivity
 		}
 	}
 	
+	// Using onKeyUp instead of onKeyDown is working, otherwise the menu would just close itself after opening
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event)
 	{
@@ -247,6 +249,9 @@ public class Main extends SherlockActivity
 		return busses;
 	}
 	
+	/**
+	 * Gets the bus list adapter
+	 */
 	public BusListAdapter getBusListAdapter()
 	{
 		return busListAdapter;

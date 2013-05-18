@@ -26,6 +26,11 @@ import com.mehmetakiftutuncu.eshotroid.database.MyDatabase;
 import com.mehmetakiftutuncu.eshotroid.model.Bus;
 import com.mehmetakiftutuncu.eshotroid.tasks.GetTimesPageTask;
 
+/**
+ * Bus list adapter class is the adapter that supplies the bus list with items from an ArrayList of Bus items
+ * 
+ * @author Mehmet Akif Tütüncü
+ */
 public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 {
 	private Context myContext;
@@ -39,6 +44,9 @@ public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 	 */
 	public static final String LOG_TAG = "Eshotroid_BusListAdapter";
 	
+	/**
+	 * Holder class for each item
+	 */
 	static class ViewHolder
 	{
 		public CheckBox favorite;
@@ -126,6 +134,7 @@ public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 	@Override
 	public int getCount()
 	{
+		// This is important, if not checked here, the list will never know how many items it has causing crashes
 		return myCurrentItems != null ? myCurrentItems.size() : 0;
 	}
 	
@@ -212,6 +221,9 @@ public class BusListAdapter extends ArrayAdapter<Bus> implements SectionIndexer
 		return row;
 	}
 	
+	/**
+	 * Updates the section list so that sections can be seen during fast scrolling
+	 */
 	public void updateSectionlist()
 	{
 		myIndexer = new HashMap<String, Integer>();

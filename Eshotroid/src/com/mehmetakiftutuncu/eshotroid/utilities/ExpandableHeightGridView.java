@@ -5,6 +5,9 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
+/**
+ * This is just an extension to the GridView letting it expand vertically as items are added to it instead of scrolling
+ */
 public class ExpandableHeightGridView extends GridView
 {
     boolean expanded = false;

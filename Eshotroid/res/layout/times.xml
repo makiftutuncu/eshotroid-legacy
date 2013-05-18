@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
     <TextView
         android:id="@+id/textView_times_route"
@@ -13,7 +13,7 @@
     
     <RadioGroup
         android:id="@+id/radioGroup_times_types"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView_times_route"
         android:layout_centerHorizontal="true"
@@ -54,7 +54,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_times_header"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/radioGroup_times_types"
         android:layout_centerHorizontal="true"
@@ -80,8 +80,8 @@
 
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         android:id="@+id/pullToRefreshScrollView_times"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/linearLayout_times_header"
         android:layout_centerHorizontal="true"
         android:fastScrollEnabled="true"

@@ -3,41 +3,41 @@
 
     <string name="app_name">Eshotroid</string>
     
-    <string name="weekDay">Hafta İçi</string>
-    <string name="saturday">Cumartesi</string>
-    <string name="sunday">Pazar</string>
+    <string name="weekDay">Week Days</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
     
-    <string name="search_label">Otobüs Arama</string>
-    <string name="search_hint">Otobüs Numarası/Konumu</string>
+    <string name="search_label">Bus Search</string>
+    <string name="search_hint">Bus Number/Location</string>
     
-    <string name="menu_more">Daha Fazla</string>
-    <string name="menu_rate">Oy Verin/Yorum Yapın</string>
-    <string name="menu_contact">Geliştiriciye Ulaşın</string>
-    <string name="menu_website">Geliştiricinin Web Sayfası</string>
-    <string name="menu_help">Yardım</string>
-    <string name="menu_about">Uygulama Hakkında</string>
+    <string name="menu_more">More</string>
+    <string name="menu_rate">Rate/Comment</string>
+    <string name="menu_contact">Contact Developer</string>
+    <string name="menu_website">Developer\'s Website</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_about">About Application</string>
     
-    <string name="pullToRefresh_pull">Yenilemek için kaydırın.</string>
-    <string name="pullToRefresh_release">Yenilemek için bırakın.</string>
-    <string name="pullToRefresh_refresh">Yenileniyor&#8230;</string>
+    <string name="pullToRefresh_pull">Pull to refresh.</string>
+    <string name="pullToRefresh_release">Release to refresh.</string>
+    <string name="pullToRefresh_refresh">Refreshing&#8230;</string>
     
-    <string name="error_noConnection">İnternet bağlantısı yok!</string>
-    <string name="info_successful">Başarılı!</string>
-    <string name="info_noTimes">Belirtilen gün için sefer bulunamadı.</string>
-    <string name="info_noClosestTime">Sonraki sefer bulunamadı. Tüm seferler gösteriliyor.</string>
-    <string name="info_selectedTimePassed">Seçtiğiniz otobüsün saati geçmiş.</string>
-    <string name="info_remainingTime">%1$s otobüsüne %2$d saat %3$d dakika zaman var.</string>
+    <string name="error_noConnection">No internet connection!</string>
+    <string name="info_successful">Successful!</string>
+    <string name="info_noTimes">No bus found for the specified day.</string>
+    <string name="info_noClosestTime">No more bus to show. Showing all busses.</string>
+    <string name="info_selectedTimePassed">The time has already passed for the bus you selected.</string>
+    <string name="info_remainingTime">Remaining time for %1$s bus: %2$d hours %3$d minutes</string>
     
-    <string name="title_favoritedBusses">Sık Kullanılan Otobüsler</string>
-    <string name="title_allBusses">Tüm Otobüsler</string>
+    <string name="title_favoritedBusses">Favorite Busses</string>
+    <string name="title_allBusses">All Busses</string>
     
-    <string name="help_title">Eshotroid Yardımı</string>
-    <string name="help_ok">Tamam</string>
-    <string name="help_main_content">Eshotroid ile otobüs saatlerini kolayca öğrenebilirsiniz. İndirilen her içerik kaydedileceğinden yalnızca otobüs listesini indirirken ve bir otobüsün saatlerine ilk kez bakarken internet bağlantısı gerekmektedir.\n\n* Aradığınız otobüse kolayca ulaşmak için sağ üst köşedeki arama düğmesini kullanabilir ya da sık kullandığınız otobüsleri işaretleyip sık kullanılanlar listesine ekleyebilirsiniz.\n\n* Bir otobüsü sık kullanılanlar listesine eklemek için yanındaki yıldıza dokunabilirsiniz.\n\n* Bir otobüsü sık kullanılanlar listesinden kaldırmak için yanındaki yıldıza tekrar dokunabilir ya da sık kullanılanlar listesindeki düğmesine dokunup bekleyebilirsiniz.\n\n* Sık kullanılanlar listesine eklediğiniz otobüsler için saatler (internet bağlantısı varsa) arka planda kendiliğinden indirilir.\n\n* Otobüs listesini yeniden indirmek isterseniz listenin başındayken listeyi aşağı doğru sürükleyip bırakabilirsiniz.</string>
-    <string name="help_times_content">Bu sayfada seçtiğiniz otobüsün saatlerini görebilirsiniz.\n\n* Başka bir güne ait saatleri görmek için seçimi değiştirebilirsiniz. Eshotroid, varsayılan olarak şu anda hangi gündeyseniz ona uygun olan seçeneği seçmektedir.\n\n* Herhangi bir saatin üzerine dokunarak o saatteki otobüse ne kadar zaman kaldığını görebilirsiniz.\n\n* Tüm saatleri göstermek ya da en yakın saatten başlayarak geri kalan saatleri göstermek için sağ üstteki saat simgesine dokunabilirsiniz. Eshotroid, saatleri varsayılan olarak en yakın saatten başlayarak göstermektedir.\n\n* Seçilen gün için saatleri yeniden indirmek isterseniz listenin başındayken listeyi aşağı doğru sürükleyip bırakabilirsiniz.</string>
+    <string name="help_title">Eshotroid Help</string>
+    <string name="help_ok">OK</string>
+    <string name="help_main_content">You can learn bus times easily with Eshotroid. Since every downloaded content is saved, the internet connection will only be needed while downloading bus list and checking times for a bus for the first time.\n\n* To easily find the bus you are looking for, you can use the search button on top right corner or you can add your favorite busses to the favorite busses list.\n\n* To add a bus to the favorite busses list, you can touch the star next to it.\n\n* To remove a bus from the favorite busses list, you can touch the star next to it again or you can touch and wait to its button in favorite busses list.\n\n* Times for the busses you add to favorite busses list get downloaded automatically (if there is internet connection) in the background.\n\n* If you want to download the bus list again, go to the top of bus list, pull the list down and release.</string>
+    <string name="help_times_content">You can see the times for the bus you selected here.\n\n* To see the times for another day, simply change the selected day. Eshotroid, selects the appropriate day according to the current day.\n\n* You can see the remaining time for a bus by touching any time in the list.\n\n* To switch between showing all the times or just the ones from that time forward, you can use the time icon on top right corner. Eshotroid, shows the times from that time forward as default.\n\n* If you want to download the times for the selected day again, go to the top of bus list, pull the list down and release.</string>
     
-    <string name="about_title">Eshotroid %1$s Hakkında</string>
-    <string name="about_content">&lt;p&gt;Bu uygulama &lt;a href=\"http://www.eshot.gov.tr\"&gt;Eshot Genel Müdürlüğü&lt;/a&gt;nden tamamen bağımsız olarak Mehmet Akif Tütüncü tarafından geliştirilmiştir.&lt;/p&gt;&lt;p&gt;Uygulamadaki tüm otobüs bilgileri &lt;a href=\"http://mobil.eshot.gov.tr\"&gt;http://mobil.eshot.gov.tr&lt;/a&gt; üzerinden indirilmektedir. Geliştirici bilgilerin doğruluğunu kesinlikle garanti etmemekte ve uygulamanın kullanımıyla ilgili geliştiriciye ait hiçbir sorumluluk bulunmamaktadır.&lt;/p&gt;&lt;p&gt;Uygulama tamamen ücretsizdir. Dilediğiniz gibi kullanabilirsiniz.&lt;/p&gt;&lt;p&gt;Uygulamanın kaynak kodlarına erişmek istiyorsanız geliştiriciye bu konuda bir e-posta gönderebilirsiniz.&lt;/p&gt;&lt;p&gt;Lütfen görüşlerinizi, önerilerinizi ve aldığınız hataları geliştiriciye bildiriniz.&lt;/p&gt;Otobüsünüzü hiç kaçırmamanız dileğiyle&#8230; :)&lt;/p&gt;</string>
-    <string name="about_ok">Tamam</string>
+    <string name="about_title">About Eshotroid %1$s</string>
+    <string name="about_content">&lt;p&gt;This application is developed by Mehmet Akif Tütüncü completely independent from &lt;a href=\"http://www.eshot.gov.tr\"&gt;Eshot Genel Müdürlüğü&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;All the bus information within the application is downloaded from &lt;a href=\"http://mobil.eshot.gov.tr\"&gt;http://mobil.eshot.gov.tr&lt;/a&gt;. The developer does not guarantee that the information is correct and has no responsibility over the usage of the application.&lt;/p&gt;&lt;p&gt;This application is completely free. You can use it however you like.&lt;/p&gt;&lt;p&gt;If you are interested in the source codes of the application, you can send an e-mail about this to the developer.&lt;/p&gt;&lt;p&gt;Please let the developer know about your opinions, suggestions and errors.&lt;/p&gt;&lt;p&gt;Hope you never miss your bus&#8230; :)&lt;/p&gt;</string>
+    <string name="about_ok">OK</string>
 
 </resources>

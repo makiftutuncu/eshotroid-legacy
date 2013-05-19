@@ -32,6 +32,13 @@ Eshotroid requires,
 * Access network state to see if you are connected to the internet
 permissions.
 
+*Used Libraries/Projects*
+
+Google Gson   		- https://code.google.com/p/google-gson/
+ActionBarSherlock	- http://actionbarsherlock.com/
+Pull to Refresh		- https://github.com/chrisbanes/Android-PullToRefresh
+AppMsg				    - http://johnkil.github.com/Android-AppMsg/
+
 *One Last Note*
 
 This application is developed completely independent from Eshot Genel Müdürlüğü. All the bus information within the application is downloaded from http://mobil.eshot.gov.tr. As the developer, I do not guarantee that the information is correct take no responsibility over the usage of the application.

@@ -18,9 +18,9 @@ public class Parser
 	public static final String BUS_CLOSE = "</option>";
 	
 	// Tags for a bus time in Saatler.aspx
-	public static final String BUSTIME_OPEN_START = "<td ";
+	public static final String BUSTIME_OPEN_START = "<span ";
 	public static final String BUSTIME_OPEN_END = "\">";
-	public static final String BUSTIME_CLOSE = "</td>";
+	public static final String BUSTIME_CLOSE = "</span>";
 	
 	// Tags for a bus route in Saatler.aspx
 	public static final String BUSROUTE_OPEN_START = "<span ";

@@ -35,7 +35,7 @@ public class MenuHandler
 				
 			case R.id.item_contact:
 				Intent intentContact = new Intent(Intent.ACTION_SEND);
-				intentContact.setType("plain/text");
+				intentContact.setType("message/rfc822");
 				intentContact.putExtra(Intent.EXTRA_EMAIL, new String[] {Constants.CONTACT});
 				intentContact.putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.contact_subject));
 				context.startActivity(Intent.createChooser(intentContact, context.getString(R.string.menu_contact)));

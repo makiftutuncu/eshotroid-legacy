@@ -13,7 +13,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.mehmetakiftutuncu.eshotroid.Constants;
 import com.mehmetakiftutuncu.eshotroid.Main;
 import com.mehmetakiftutuncu.eshotroid.R;
-import com.mehmetakiftutuncu.eshotroid.adapters.BusListAdapter;
 import com.mehmetakiftutuncu.eshotroid.database.MyDatabase;
 import com.mehmetakiftutuncu.eshotroid.model.Bus;
 import com.mehmetakiftutuncu.eshotroid.utilities.Connection;
@@ -93,8 +92,6 @@ public class GetBussesPageTask extends AsyncTask<Void, Void, Void> implements Ru
 				AppMsg.makeText((Activity) myContext, myContext.getString(R.string.info_successful), AppMsg.STYLE_INFO).show();
 				
 				((Main) myContext).setBussesList(busses);
-				
-				myPtrList.setAdapter(new BusListAdapter(myContext, busses));
 			}
 			else
 			{

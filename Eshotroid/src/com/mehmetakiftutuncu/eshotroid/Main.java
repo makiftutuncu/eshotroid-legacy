@@ -154,24 +154,6 @@ public class Main extends SherlockActivity
         return true;
     }
 	
-	/*
-	@Override
-	public boolean onMenuItemSelected(int featureId, android.view.MenuItem item)
-	{
-		switch(item.getItemId())
-		{
-			// SearchView is collapsing, list all the busses again.
-			case android.R.id.home:
-				searchBusses(null);
-				return true;
-				
-			default:
-				MenuHandler.handle(this, item);
-				return true;
-		}
-	}
-	*/
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -257,6 +239,8 @@ public class Main extends SherlockActivity
 	public void setBussesList(ArrayList<Bus> busses)
 	{
 		this.busses = busses;
+		busListAdapter = new BusListAdapter(this, busses);
+		ptrList.setAdapter(busListAdapter);
 	}
 	
 	/**

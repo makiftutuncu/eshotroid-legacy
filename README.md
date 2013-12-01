@@ -3,7 +3,7 @@ eshotroid
 
 <b>What Is Eshotroid?</b>
 
-Eshotroid is an application that makes it easy to check bus times and Kent Kart balance.
+Eshotroid is an application that makes it easy to check bus times and Kent Kart balance for İzmir.
 
 With Eshotroid
 * You can see busses, their locations and their times.

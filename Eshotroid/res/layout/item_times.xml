@@ -1,0 +1,53 @@
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_item_times_source"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/textView_item_times_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/item_times_status_padding"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <ImageView
+            android:id="@+id/imageView_item_times_wheelChair_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/textView_item_times_source"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:src="@drawable/ic_wheel_chair" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_item_times_destination"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/textView_item_times_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/item_times_status_padding"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <ImageView
+            android:id="@+id/imageView_item_times_wheelChair_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/textView_item_times_destination"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            android:src="@drawable/ic_wheel_chair" />
+    </RelativeLayout>
+
+</TableRow>

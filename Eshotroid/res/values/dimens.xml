@@ -1,0 +1,29 @@
+<resources>
+
+    <dimen name="welcome_margin">10dp</dimen>
+    <dimen name="welcome_title_textSize">24sp</dimen>
+    <dimen name="setupWizard_title_textSize">20sp</dimen>
+    <dimen name="setupWizard_padding">10dp</dimen>
+    <dimen name="setupWizard_margin">8dp</dimen>
+    <dimen name="setupWizard_options_textSize">14sp</dimen>
+    <dimen name="about_padding">10dp</dimen>
+    <dimen name="about_margin">8dp</dimen>
+    <dimen name="about_title_textSize">24sp</dimen>
+    <dimen name="logo_size">160dp</dimen>
+    <dimen name="help_margin">10dp</dimen>
+    <dimen name="drawerMenu_width">240dp</dimen>
+    <dimen name="drawerMenu_item_margin">8dp</dimen>
+    <dimen name="page_padding">5dp</dimen>
+    <dimen name="navigationStrip_padding">4dp</dimen>
+    <dimen name="item_bus_number_textSize">32sp</dimen>
+    <dimen name="item_bus_padding">8dp</dimen>
+    <dimen name="item_bus_margin">4dp</dimen>
+    <dimen name="item_times_padding">8dp</dimen>
+    <dimen name="item_times_separator_height">1dp</dimen>
+    <dimen name="item_times_status_padding">8dp</dimen>
+    <dimen name="item_progress_margin">5dp</dimen>
+    <dimen name="kentKartBalance_margin">4dp</dimen>
+    <dimen name="kentKartBalance_result_textSize">16sp</dimen>
+    <dimen name="kentKartBalance_result_balance_textSize">48sp</dimen>
+    
+</resources>

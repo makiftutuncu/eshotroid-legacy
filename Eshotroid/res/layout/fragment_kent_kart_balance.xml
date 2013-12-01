@@ -1,0 +1,219 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/page_padding"
+    tools:context="com.mehmetakiftutuncu.eshotroid.fragment.KentKartBalanceFragment" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="@dimen/page_padding" >
+
+        <TextView
+            android:id="@+id/textView_kentKartBalance_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/kentKartBalance_margin"
+            android:gravity="center"
+            android:text="@string/kentKartBalance_info_selectKentKart" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_kentKartBalance_existingQuery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <Spinner
+                    android:id="@+id/spinner_kentKartBalance_selectedKentKart"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/imageButton_kentKartBalance_deleteKentKart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_action_discard" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView_kentKartBalance_deleteKentKartInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/kentKartBalance_margin"
+                android:gravity="center"
+                android:text="@string/kentKartBalance_existingQuery_delete_info" />
+
+            <Button
+                android:id="@+id/button_kentKartBalance_newQuery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/kentKartBalance_margin"
+                android:text="@string/kentKartBalance_newQuery" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout_kentKartBalance_newQuery"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/kentKartBalance_margin"
+                android:gravity="center"
+                android:text="@string/kentKartBalance_newQuery_info" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/editText_kentKartBalance_aliasNo1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="5" />
+
+                <EditText
+                    android:id="@+id/editText_kentKartBalance_aliasNo2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="5" />
+
+                <EditText
+                    android:id="@+id/editText_kentKartBalance_aliasNo3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="1" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/kentKartBalance_margin"
+                android:gravity="center"
+                android:text="@string/kentKartBalance_saveKentKart_info" />
+
+            <CheckBox
+                android:id="@+id/checkBox_kentKartBalance_saveKentKart_saveStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/kentKartBalance_saveKentKart_saveStatus" />
+
+            <EditText
+                android:id="@+id/editText_kentKartBalance_saveKentKart_saveName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/kentKartBalance_saveKentKart_saveName_hint" />
+
+            <Button
+                android:id="@+id/button_kentKartBalance_existingQuery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/kentKartBalance_margin"
+                android:text="@string/kentKartBalance_existingQuery" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_kentKartBalance_query"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:layout_margin="@dimen/kentKartBalance_margin"
+            android:text="@string/kentKartBalance_query" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout_kentKartBalance_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/kentKartBalance_margin"
+                android:text="@string/kentKartBalance_balance_title"
+                android:textSize="@dimen/kentKartBalance_result_textSize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_kentKartBalance_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/kentKartBalance_margin"
+                android:layout_marginTop="@dimen/kentKartBalance_margin"
+                android:text="@string/kentKartBalance_balance"
+                android:textSize="@dimen/kentKartBalance_result_balance_textSize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/kentKartBalance_margin"
+                android:layout_marginTop="@dimen/kentKartBalance_margin"
+                android:text="@string/kentKartBalance_lastLoad_title"
+                android:textSize="@dimen/kentKartBalance_result_textSize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_kentKartBalance_lastLoad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/kentKartBalance_margin"
+                android:text="@string/kentKartBalance_lastLoad"
+                android:textSize="@dimen/kentKartBalance_result_textSize" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/kentKartBalance_margin"
+                android:layout_marginTop="@dimen/kentKartBalance_margin"
+                android:text="@string/kentKartBalance_lastUse_title"
+                android:textSize="@dimen/kentKartBalance_result_textSize"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView_kentKartBalance_lastUse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/kentKartBalance_margin"
+                android:text="@string/kentKartBalance_lastUse"
+                android:textSize="@dimen/kentKartBalance_result_textSize" />
+
+            <Button
+                android:id="@+id/button_kentKartBalance_goBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/kentKartBalance_margin"
+                android:text="@string/kentKartBalance_goBack" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

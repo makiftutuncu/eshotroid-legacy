@@ -1,45 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Eshotroid</string>
+    <string name="dialog_yes">Evet</string>
+    <string name="dialog_no">Hayır</string>
+    <string name="dialog_ok">Tamam</string>
     
-    <string name="weekDay">Hafta İçi</string>
-    <string name="saturday">Cumartesi</string>
-    <string name="sunday">Pazar</string>
+    <string name="welcome_title">Eshotroid\'e Hoş Geldiniz!</string>
+    <string name="welcome_info">Eshotroid\'i ilk defa çalıştırıyorsunuz.\n\nBu kurulum size Eshotroid\'i kullanmaya başlamanızda yardımcı olacak.\n\nYalnızca uygulamayı ilk kez çalıştırdığınızda bu kurulumu yapmanız gerekir.\n\nKurulum aşamasında internet bağlantısı gereklidir.</string>
+    <string name="welcome_start">Haydi Başlayalım!</string>
     
-    <string name="search_label">Otobüs Arama</string>
-    <string name="search_hint">Otobüs Numarası/Konumu</string>
+    <string name="setupWizard_title">Eshotroid Kurulumu</string>
+    <string name="setupWizard_info">Ne yapmak istersiniz?</string>
+    <string name="setupWizard_downloadBusses_info">Otobüslerin listesi indirilirken lütfen bekleyin\u2026</string>
+    <string name="setupWizard_downloadSelected">Sık kullandığım otobüsleri seçeyim, onların saatlerini indir.</string>
+    <string name="setupWizard_downloadSelected_info">Önerilir.</string>
+    <string name="setupWizard_downloadNothing">Otobüs saatlerini indirme.</string>
+    <string name="setupWizard_downloadNothing_info">Otobüslerin saatleri ilk açıldıklarında indirilir. Sürekli internet bağlantınız yoksa önerilmez.</string>
+    <string name="setupWizard_downloadSelectedDialog_title">Sık Kullandığınız Otobüsleri İşaretleyin</string>
+    <string name="setupWizard_downloadTimes_info">Seçtiğiniz otobüs saatleri indirilirken lütfen bekleyin\u2026</string>
+    <string name="setupWizard_downloadTimes_status">%1$s indiriliyor\u2026</string>
+    <string name="setupWizard_noBusSelectedDialog_title">Sık Kullanılan Otobüs Seçilmedi</string>
+    <string name="setupWizard_noBusSelectedDialog_message">Hiçbir otobüsü sık kullanılan olarak seçmediniz. Devam ederseniz uygulama otobüs saatleri indirilmeden başlayacak.\n\nYine de devam etmek istiyor musunuz?</string>
+    <string name="setupWizard_cancelDialog_title">Kurulum Tamamlanmadı</string>
+    <string name="setupWizard_cancelDialog_message">Uygulamayı daha verimli kullanabilmek için kurulumu tamamlamanız önerilir.\n\nYine de iptal etmek istiyor musunuz?</string>
+    <string name="setupWizard_start">Başla!</string>
     
-    <string name="menu_more">Daha Fazla</string>
-    <string name="menu_rate">Oy Verin/Yorum Yapın</string>
-    <string name="menu_contact">Geliştiriciye Ulaşın</string>
-    <string name="menu_website">Geliştiricinin Web Sayfası</string>
-    <string name="menu_help">Yardım</string>
-    <string name="menu_about">Uygulama Hakkında</string>
+    <string name="help_title">Eshotroid Nasıl Kullanılır?</string>
+    <string name="help_next">Sonraki</string>
+    <string name="help_previous">Önceki</string>
+    <string name="help_finish">Bitir</string>
+    <string name="help_navigation">Sayfalar arasında geçiş yapmak için sayfayı sola/sağa sürükleyin.</string>
+    <string name="help_showing_times">Bir otobüsün saatlerini görüntülemek için listede o otobüsü seçin.</string>
+    <string name="help_times">En yakın saatte gelecek olan otobüs yeşil işaretli olarak gösterilir. Bir saatin yanında tekerlekli sandalye resmi varsa o saatte gelecek otobüs tekerlekli sandalye uyumlu demektir.</string>
+    <string name="help_showing_remaining_time">Otobüsün hareket etmesine ne kadar zaman kaldığını görmek için otobüs saatine dokunun.</string>
+    <string name="help_searching">Otobüs listesinde arama yapmak için arama düğmesine basın ve aramak istediğiniz şeyi yazın.</string>
+    <string name="help_favoriting">Bir otobüsü sık kullanılanlar listesine eklemek veya bu listeden çıkarmak için otobüsün yanındaki yıldız düğmesine basın.</string>
+    <string name="help_refreshing">Görüntülediğiniz içeriği yeniden indirmek ve güncellemek için yenile düğmesine basın.</string>
+    <string name="help_showing_menu">Uygulamanın menüsünü görüntülemek için ekranın en solundan sağa doğru sürükleyin veya başlığın solundaki simgeye dokunun.</string>
     
-    <string name="pullToRefresh_pull">Yenilemek için kaydırın.</string>
-    <string name="pullToRefresh_release">Yenilemek için bırakın.</string>
-    <string name="pullToRefresh_refresh">Yenileniyor&#8230;</string>
+    <string name="mainPages_favoriteBusses">Sık Kullanılan Otobüsler</string>
+    <string name="mainPages_allBusses">Tüm Otobüsler</string>
+    <string name="mainPages_kentKartBalance">Kent Kart Bakiyesi</string>
+    
+    <string name="busTimes_h">Hafta İçi</string>
+    <string name="busTimes_c">Cumartesi</string>
+    <string name="busTimes_p">Pazar</string>
+    
+    <string name="menu_search">Arama</string>
+    <string name="menu_search_hint">Numara veya Konum Giriniz</string>
+    <string name="menu_refresh">Yenile</string>
+    
+    <string name="drawerMenu_title">Seçenekler</string>
+    <string name="times_title">%1$d Saatleri</string>
+    
+    <string name="drawerMenu_rate">Oy Verin/Yorum Yapın</string>
+    <string name="drawerMenu_contact">Geliştiriciye Ulaşın</string>
+    <string name="drawerMenu_website">Geliştiricinin Web Sayfası</string>
+    <string name="drawerMenu_help">Yardım</string>
+    <string name="drawerMenu_about">Uygulama Hakkında</string>
+    
+    <string name="about_title">Eshotroid Hakkında</string>
+    <string name="about_content">
+        <![CDATA[
+        <p>Bu uygulama <b>Eshot Genel Müdürlüğü</b>nden ve <b>Kent Kart</b>tan tamamen bağımsız olarak Mehmet Akif Tütüncü tarafından geliştirilmiştir.</p>
+        <p>Uygulamadaki tüm otobüs bilgileri <a href="http://mobil.eshot.gov.tr">http://mobil.eshot.gov.tr</a>, tüm Kent Kart bilgileri de <a href="http://m.kentkart.com">http://m.kentkart.com</a> üzerinden indirilmektedir. Geliştirici bilgilerin doğruluğunu kesinlikle garanti etmemekte ve uygulamanın kullanımıyla ilgili geliştiriciye ait hiçbir sorumluluk bulunmamaktadır.</p>
+        <p>Uygulama tamamen ücretsizdir. Dilediğiniz gibi kullanabilirsiniz.</p>
+        <p>Uygulamanın kaynak kodlarına erişmek istiyorsanız geliştiriciye bu konuda bir e-posta gönderebilirsiniz.</p>
+        <p>Lütfen görüşlerinizi, önerilerinizi ve aldığınız hataları geliştiriciye bildiriniz.</p>
+        <p>Otobüsünüzü hiç kaçırmamanız dileğiyle&#8230; :)</p>
+        ]]>
+    </string>
+    
+    <string name="favoriteBusses_info">Sık kullanılan olarak belirlenmiş otobüs yok.\n\nBir otobüsü sık kullanılan olarak belirlemek için yanındaki yıldızı işaretleyin.</string>
+    
+    <string name="kentKartBalance_query">Sorgula</string>
+    <string name="kentKartBalance_newQuery">Yeni Bir Kent Kart Sorgula</string>
+    <string name="kentKartBalance_existingQuery">Kayıtlı Bir Kent Kart Seç</string>
+    <string name="kentKartBalance_goBack">Geri Dön</string>
+    <string name="kentKartBalance_info_selectKentKart">Kayıtlı Kent Kart\'lardan birini seçin.</string>
+    <string name="kentKartBalance_info_noSavedKentKart">Kayıtlı bir Kent Kart\'ınız yok. Kent Kart numarasını girerek yeni bir sorgulama yapabilir ve sorgulanan Kent Kart\'ı kaydedebilirsiniz.</string>
+    <string name="kentKartBalance_existingQuery_delete_info">Seçili Kent Kart\'ı silmek için çöp kutusu düğmesine basabilirsiniz.</string>
+    <string name="kentKartBalance_newQuery_info">Kent Kart\'ınızın arka yüzünde yer alan 11 haneli numarayı aşağıdaki alanlara girin.</string>
+    <string name="kentKartBalance_saveKentKart_info">Dilerseniz bu Kent Kart\'ı daha sonra kolayca kullanmak için kaydedebilirsiniz.</string>
+    <string name="kentKartBalance_saveKentKart_saveStatus">Kaydedilsin mi?</string>
+    <string name="kentKartBalance_saveKentKart_saveName_hint">Kent Kart\'a bir isim verin.</string>
+    <string name="kentKartBalance_balance">%1$s TL</string>
+    <string name="kentKartBalance_balance_title">Kart Bakiyesi</string>
+    <string name="kentKartBalance_lastLoad">%1$s tarihinde %2$s TL</string>
+    <string name="kentKartBalance_lastLoad_title">Yapılan En Son Yükleme</string>
+    <string name="kentKartBalance_lastUse">%1$s tarihinde %2$s TL</string>
+    <string name="kentKartBalance_lastUse_title">Kartın En Son Kullanımı</string>
     
     <string name="error_noConnection">İnternet bağlantısı yok!</string>
-    <string name="info_successful">Başarılı!</string>
-    <string name="info_noTimes">Belirtilen gün için sefer bulunamadı.</string>
-    <string name="info_noClosestTime">Sonraki sefer bulunamadı. Tüm seferler gösteriliyor.</string>
+    <string name="error_parse">İndirilen veri işlenirken bir hata oluştu!</string>
+    <string name="error_unknown">Bilinmeyen bir hata oluştu!</string>
+    <string name="error_setupWizard_noBusses">Otobüslerin listesi indirilemedi! Lütfen internete bağlı olduğunuzdan emin olun ve uygulamayı yeniden başlatın.</string>
+    
+    <string name="info_allBusses_successful">Otobüslerin listesi başarıyla yenilendi!</string>
+    <string name="info_allBusses_refreshing">Otobüslerin listesi yenileniyor\u2026</string>
+    
+    <string name="info_busTimes_successful">%1$d numaralı otobüsün %2$s saatleri yenilendi!</string>
+    <string name="info_busTimes_refreshing">%1$d numaralı otobüsün %2$s saatleri yenileniyor\u2026</string>
+    <string name="info_busTimes_noTimes">%1$d numaralı otobüsün %2$s seferi bulunamadı!</string>
+    
+    <string name="info_kentKart_successful">Sorgulama başarılı!</string>
+    <string name="info_kentKart_refreshing">%1$s sorgulanıyor\u2026</string>
+    <string name="info_kentKart_saved">%1$s kaydedildi!</string>
+    <string name="info_kentKart_deleted">%1$s silindi!</string>
+    <string name="info_kentKart_invalid">Sorgulama başarısız! Girdiğiniz Kent Kart numarasının doğru olduğundan emin olun.</string>
+    
     <string name="info_selectedTimePassed">Seçtiğiniz otobüsün saati geçmiş.</string>
     <string name="info_remainingTime">%1$s otobüsüne %2$d saat %3$d dakika zaman var.</string>
-    
-    <string name="title_favoritedBusses">Sık Kullanılan Otobüsler</string>
-    <string name="title_allBusses">Tüm Otobüsler</string>
-    
-    <string name="contact_subject">Eshotroid Hakkında</string>
-    
-    <string name="help_title">Eshotroid Yardımı</string>
-    <string name="help_ok">Tamam</string>
-    <string name="help_main_content">Eshotroid ile otobüs saatlerini kolayca öğrenebilirsiniz. İndirilen her içerik kaydedileceğinden yalnızca otobüs listesini indirirken ve bir otobüsün saatlerine ilk kez bakarken internet bağlantısı gerekmektedir.\n\n* Aradığınız otobüse kolayca ulaşmak için sağ üst köşedeki arama düğmesini kullanabilir ya da sık kullandığınız otobüsleri işaretleyip sık kullanılanlar listesine ekleyebilirsiniz.\n\n* Bir otobüsü sık kullanılanlar listesine eklemek için yanındaki yıldıza dokunabilirsiniz.\n\n* Bir otobüsü sık kullanılanlar listesinden kaldırmak için yanındaki yıldıza tekrar dokunabilir ya da sık kullanılanlar listesindeki düğmesine dokunup bekleyebilirsiniz.\n\n* Sık kullanılanlar listesine eklediğiniz otobüsler için saatler (internet bağlantısı varsa) arka planda kendiliğinden indirilir.\n\n* Otobüs listesini yeniden indirmek isterseniz listenin başındayken listeyi aşağı doğru sürükleyip bırakabilirsiniz.</string>
-    <string name="help_times_content">Bu sayfada seçtiğiniz otobüsün saatlerini görebilirsiniz.\n\n* Başka bir güne ait saatleri görmek için seçimi değiştirebilirsiniz. Eshotroid, varsayılan olarak şu anda hangi gündeyseniz ona uygun olan seçeneği seçmektedir.\n\n* Herhangi bir saatin üzerine dokunarak o saatteki otobüse ne kadar zaman kaldığını görebilirsiniz.\n\n* Tüm saatleri göstermek ya da en yakın saatten başlayarak geri kalan saatleri göstermek için sağ üstteki saat simgesine dokunabilirsiniz. Eshotroid, saatleri varsayılan olarak en yakın saatten başlayarak göstermektedir.\n\n* Seçilen gün için saatleri yeniden indirmek isterseniz listenin başındayken listeyi aşağı doğru sürükleyip bırakabilirsiniz.</string>
-    
-    <string name="about_title">Eshotroid %1$s Hakkında</string>
-    <string name="about_content">&lt;p&gt;Bu uygulama &lt;b&gt;Eshot Genel Müdürlüğü&lt;/b&gt;nden tamamen bağımsız olarak Mehmet Akif Tütüncü tarafından geliştirilmiştir.&lt;/p&gt;&lt;p&gt;Uygulamadaki tüm otobüs bilgileri &lt;b&gt;http://mobil.eshot.gov.tr&lt;/b&gt; üzerinden indirilmektedir. Geliştirici bilgilerin doğruluğunu kesinlikle garanti etmemekte ve uygulamanın kullanımıyla ilgili geliştiriciye ait hiçbir sorumluluk bulunmamaktadır.&lt;/p&gt;&lt;p&gt;Uygulama tamamen ücretsizdir. Dilediğiniz gibi kullanabilirsiniz.&lt;/p&gt;&lt;p&gt;Uygulamanın kaynak kodlarına erişmek istiyorsanız geliştiriciye bu konuda bir e-posta gönderebilirsiniz.&lt;/p&gt;&lt;p&gt;Lütfen görüşlerinizi, önerilerinizi ve aldığınız hataları geliştiriciye bildiriniz.&lt;/p&gt;Otobüsünüzü hiç kaçırmamanız dileğiyle&#8230; :)&lt;/p&gt;</string>
-    <string name="about_ok">Tamam</string>
+    <string name="info_remainingTimeShort">%1$s otobüsüne %2$d dakika zaman var.</string>
 
 </resources>

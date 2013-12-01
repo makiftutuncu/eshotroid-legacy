@@ -2,11 +2,9 @@ package com.mehmetakiftutuncu.eshotroid.model;
 
 import java.util.ArrayList;
 
-/**
- * A model class for a bus
+/** A model class for a bus
  * 
- * @author Mehmet Akif Tütüncü
- */
+ * @author mehmetakiftutuncu */
 public class Bus
 {
 	private int number;
@@ -17,8 +15,14 @@ public class Bus
 	private ArrayList<BusTime> timesH;
 	private ArrayList<BusTime> timesC;
 	private ArrayList<BusTime> timesP;
+	private boolean timesHExists;
+	private boolean timesCExists;
+	private boolean timesPExists;
 	
-	public Bus(int number, String source, String destination, String route, boolean isFavorited, ArrayList<BusTime> timesH, ArrayList<BusTime> timesC, ArrayList<BusTime> timesP)
+	public Bus(int number, String source, String destination, String route,
+			boolean isFavorited, ArrayList<BusTime> timesH,
+			ArrayList<BusTime> timesC, ArrayList<BusTime> timesP,
+			boolean timesHExists, boolean timesCExists, boolean timesPExists)
 	{
 		setNumber(number);
 		setSource(source);
@@ -28,6 +32,9 @@ public class Bus
 		setTimesH(timesH);
 		setTimesC(timesC);
 		setTimesP(timesP);
+		setTimesHExists(timesHExists);
+		setTimesCExists(timesCExists);
+		setTimesPExists(timesPExists);
 	}
 
 	public int getNumber()
@@ -108,5 +115,41 @@ public class Bus
 	public void setTimesP(ArrayList<BusTime> timesP)
 	{
 		this.timesP = timesP;
+	}
+
+	public boolean timesHExists()
+	{
+		return timesHExists;
+	}
+
+	public void setTimesHExists(boolean timesHExists)
+	{
+		this.timesHExists = timesHExists;
+	}
+
+	public boolean timesCExists()
+	{
+		return timesCExists;
+	}
+
+	public void setTimesCExists(boolean timesCExists)
+	{
+		this.timesCExists = timesCExists;
+	}
+
+	public boolean timesPExists()
+	{
+		return timesPExists;
+	}
+
+	public void setTimesPExists(boolean timesPExists)
+	{
+		this.timesPExists = timesPExists;
+	}
+
+	@Override
+	public String toString()
+	{
+		return number + ": " + source + " - " + destination;
 	}
 }

@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/page_padding"
+    android:orientation="vertical"
+    tools:context="com.mehmetakiftutuncu.eshotroid.fragment.FavoriteBussesFragment" >
+
+    <TextView
+        android:id="@+id/textView_favoriteBusses_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/favoriteBusses_info" />
+    
+    <ListView
+        android:id="@+id/listView_favoriteBusses"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fastScrollEnabled="true"
+        android:smoothScrollbar="true"
+        android:scrollbars="none" />
+
+</LinearLayout>

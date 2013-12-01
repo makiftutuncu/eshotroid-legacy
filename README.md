@@ -3,22 +3,21 @@ eshotroid
 
 *What Is Eshotroid?*
 
-With Eshotroid, you can easily check all the busses and times for each of them in İzmir. Plus, you don't have to be connected to the internet each time. Just download the bus list and times for the busses you need when you have internet connection, then use all these without needing internet connection.
+Eshotroid is an application that makes it easy to check bus times and Kent Kart balance.
 
 With Eshotroid
-* You can see the list of busses.
-* You can see bus times for weekdays, saturdays and sundays for all busses.
-* You can search busses by their numbers and names of their routes.
+* You can see busses, their locations and their times.
+* You can search busses by their numbers and locations.
 * You can mark your favorite busses for easy access.
-* While checking the times for a bus, you can either see the times starting from that moment on or all the times for that day.
 * You can see the remaining time for a bus by touching it's time.
-* You can download the bus list and bus times whenever you want.
+* You can update the bus list and bus times whenever you want.
+* You can query the balance of your Kent Kart.
 
 Eshotroid supports *Turkish* and *English*.
 
 *How Do I Use Eshotroid?*
 
-You need to download and install Eshotroid, then download the bus list and times for the busses you need when you have internet connection. After that, you can use all these without needing internet connection.
+You need to download and install Eshotroid, then the setup wizard that will be shown on the first run will guide you throughout the process.
 
 *How Do I Install Eshotroid?*
 
@@ -34,14 +33,13 @@ permissions.
 
 *Used Libraries/Projects*
 
-* Google Gson   		- https://code.google.com/p/google-gson/
-* ActionBarSherlock	- http://actionbarsherlock.com/
-* Pull to Refresh		- https://github.com/chrisbanes/Android-PullToRefresh
-* AppMsg				    - http://johnkil.github.com/Android-AppMsg/
+* Google Gson   		      - https://code.google.com/p/google-gson/
+* Android Support Library - http://developer.android.com/tools/support-library/index.html
+* AppMsg				          - http://johnkil.github.com/Android-AppMsg/
 
 *One Last Note*
 
-This application is developed completely independent from Eshot Genel Müdürlüğü. All the bus information within the application is downloaded from http://mobil.eshot.gov.tr. As the developer, I do not guarantee that the information is correct take no responsibility over the usage of the application.
+This application is developed by Mehmet Akif Tütüncü completely independent from <b>Eshot Genel Müdürlüğü</b> and <b>Kent Kart</b>. All the information about busses are downloaded from <a href="http://mobil.eshot.gov.tr">http://mobil.eshot.gov.tr</a> and all the information about Kent Kart are downloaded from <a href="http://m.kentkart.com">http://m.kentkart.com</a>. As the developer, I do not guarantee that the information is correct and take no responsibility over the usage of the application.
 
 I'd be more than happy if you can let me know about your opinions, suggestions and error reports
 

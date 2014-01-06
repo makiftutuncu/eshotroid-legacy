@@ -1,12 +1,16 @@
 package com.mehmetakiftutuncu.eshotroid.utility;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.mehmetakiftutuncu.eshotroid.BuildConfig;
 import com.mehmetakiftutuncu.eshotroid.model.BusTime;
 import com.mehmetakiftutuncu.eshotroid.model.KentKartBalanceQueryResult;
+import com.mehmetakiftutuncu.eshotroid.model.KentKartQueryResponse;
 
 /** A utility class for parsing the pages
  * 
@@ -37,33 +41,12 @@ public class Parser
 	
 	// Tag that encloses bus times
 	public static final String BUSTIME_TABLE = "<table cellspacing=";
-	// This causes problems if there is no time for the selected bus with selected day (736P is an example)
-	// public static final String BUSTIME_TABLE_TAG = "<table ";
 	
-	// Start expression of Kent Kart balance
-	public static final String KENT_KART_BALANCE_START = "Bakiyeniz ";
-	// End expression of Kent Kart balance
-	public static final String KENT_KART_BALANCE_END = " TL";
+	// Format pattern of Kent Kart use time format in response
+	public static final String KENT_KART_TIME_FORMAT_RESPONSE = "yyyyMMddHHmmss";
 	
-	// Start expression of Kent Kart last load time
-	public static final String KENT_KART_LOAD_TIME_START = "</div>";
-	// End expression of Kent Kart last load time
-	public static final String KENT_KART_LOAD_TIME_END = " tarihli";
-	
-	// Start expression of Kent Kart last load amount
-	public static final String KENT_KART_LOAD_AMOUNT_START = "<b>";
-	// End expression of Kent Kart last load amount
-	public static final String KENT_KART_LOAD_AMOUNT_END = "</b>";
-	
-	// Start expression of Kent Kart last use time
-	public static final String KENT_KART_USE_TIME_START = "<br />";
-	// End expression of Kent Kart last use time
-	public static final String KENT_KART_USE_TIME_END = " tarihli";
-	
-	// Start expression of Kent Kart last use amount
-	public static final String KENT_KART_USE_AMOUNT_START = "<b>";
-	// End expression of Kent Kart last use amount
-	public static final String KENT_KART_USE_AMOUNT_END = "</b>";
+	// Format pattern of Kent Kart use time format in result
+	public static final String KENT_KART_TIME_FORMAT_RESULT = "dd MMMM yyyy, HH:mm:ss";
 	
 	/** Tag for debugging */
 	public static final String LOG_TAG = "Eshotroid_Parser";
@@ -266,91 +249,30 @@ public class Parser
     
     /** Gets the Kent Kart balance information from the specified page
 	 * 
-	 * @param page Source of the page
+	 * @param json Source of the page
 	 * 
 	 * @return A {@link KentKartBalanceQueryResult} object containing balance
 	 * information, or null if any error occurs */
-    public static KentKartBalanceQueryResult parseKentKartBalance(String page)
+    public static KentKartBalanceQueryResult parseKentKartBalance(String json)
     {
     	if(BuildConfig.DEBUG) Log.d(LOG_TAG, "Parsing Kent Kart balance...");
     	
     	try
         {
-    		// Define result attributes
-    		String balance = null;
-    		String lastLoadTime = null;
-    		String lastLoadAmount = null;
-    		String lastUseTime = null;
-    		String lastUseAmount = null;
+    		// Parse resulting json
+    		Gson gson = new Gson();
+    		KentKartQueryResponse result = gson.fromJson(json, KentKartQueryResponse.class);
     		
-    		// Define index variables
-            int start = 0, end = 0, last = 0;
-            
-            // Get balance
-            start = page.indexOf(KENT_KART_BALANCE_START);
-            if(start != -1)
-            {
-            	start += KENT_KART_BALANCE_START.length();
-            	end = page.indexOf(KENT_KART_BALANCE_END, start);
-            	
-            	balance = page.substring(start, end);
-            	
-            	last = end + KENT_KART_BALANCE_END.length();
-            	start = 0;
-            	end = 0;
-            }
-            
-            // Get last load time
-            start = page.indexOf(KENT_KART_LOAD_TIME_START, last);
-            if(start != -1)
-            {
-            	start += KENT_KART_LOAD_TIME_START.length();
-            	end = page.indexOf(KENT_KART_LOAD_TIME_END, start);
-            	
-            	lastLoadTime = page.substring(start, end);
-            	
-            	last = end + KENT_KART_LOAD_TIME_END.length();
-            	start = 0;
-            	end = 0;
-            }
-            
-            // Get last load amount
-            start = page.indexOf(KENT_KART_LOAD_AMOUNT_START, last);
-            if(start != -1)
-            {
-            	start += KENT_KART_LOAD_AMOUNT_START.length();
-            	end = page.indexOf(KENT_KART_LOAD_AMOUNT_END, start);
-            	
-            	lastLoadAmount = page.substring(start, end);
-            	
-            	last = end + KENT_KART_LOAD_AMOUNT_END.length();
-            	start = 0;
-            	end = 0;
-            }
-            
-            // Get last use time
-            start = page.indexOf(KENT_KART_USE_TIME_START, last);
-            if(start != -1)
-            {
-            	start += KENT_KART_USE_TIME_START.length();
-            	end = page.indexOf(KENT_KART_USE_TIME_END, start);
-            	
-            	lastUseTime = page.substring(start, end);
-            	
-            	last = end + KENT_KART_USE_TIME_END.length();
-            	start = 0;
-            	end = 0;
-            }
-            
-            // Get last use amount
-            start = page.indexOf(KENT_KART_USE_AMOUNT_START, last);
-            if(start != -1)
-            {
-            	start += KENT_KART_USE_AMOUNT_START.length();
-            	end = page.indexOf(KENT_KART_USE_AMOUNT_END, start);
-            	
-            	lastUseAmount = page.substring(start, end);
-            }
+    		// Format the parsed result correctly
+    		SimpleDateFormat responseFormatter = new SimpleDateFormat(KENT_KART_TIME_FORMAT_RESPONSE, Locale.getDefault());
+    		SimpleDateFormat resultFormatter = new SimpleDateFormat(KENT_KART_TIME_FORMAT_RESULT, Locale.getDefault());
+    		
+    		// Define result attributes
+    		String balance = result.balanceresult;
+    		String lastLoadTime = resultFormatter.format(responseFormatter.parse(result.chargeresult));
+    		String lastLoadAmount = result.chargeAmt;
+    		String lastUseTime = resultFormatter.format(responseFormatter.parse(result.usageresult));
+    		String lastUseAmount = result.usageAmt;
             
             // Generate and return resulting object
             return new KentKartBalanceQueryResult(balance, lastLoadTime,
@@ -363,42 +285,6 @@ public class Parser
         	return null;
         }
     }
-    
-    /** Extracts the information in a string between the specified tags
-	 * 
-	 * @param source Original string
-	 * @param openStart Beginning of the open tag
-	 * @param openEnd Ending of the open tag
-	 * @param close Close tag
-	 * 
-	 * @return Information between the specified tags */
-    /*
-	private static String extractFromTags(String source, String openStart, String openEnd, String close)
-	{
-		String result = source;
-		
-		int start = 0, end = 0;
-
-        start = source.indexOf(openStart);
-        if(start != -1)
-        {
-            start = source.indexOf(openEnd, start);
-            if(start != -1)
-            {
-            	start += openEnd.length();
-            	
-            	end = source.indexOf(close, start);
-
-           		if(end != -1)
-           		{
-           			result = fixTurkishHtmlEntityCharacters(source.substring(start, end));
-           		}
-            }
-        }
-        
-        return result;
-	}
-	*/
     
     /** Replaces all HTML entity characters in Turkish
 	 * 

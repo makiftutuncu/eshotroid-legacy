@@ -2,6 +2,7 @@ package com.mehmetakiftutuncu.eshotroid.task;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -40,10 +41,16 @@ public class QueryKentKartBalanceTask extends AsyncTask<Void, Void, Void>
 	private KentKartBalanceFragment myFragment;
 	
 	/** URL to send requests for querying Kent Kart balance */
-	private final static String URL = "http://m.kentkart.com/bakiyesorgulaApp.php";
+	private final static String URL = "http://m.kentkart.com/kws.php";
 	/** User agent value that will be added to the request headers */
-	private final static String USER_AGENT =
-		"Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0)";
+	private final static String[] USER_AGENTS = new String[]
+	{
+		"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36",
+		"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36",
+		"Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:24.0) Gecko/20100101 Firefox/24.0 Waterfox/24.0",
+		"Mozilla/5.0 (Linux; U; Android 4.0.3; de-ch; HTC Sensation Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30"
+		
+	};
 	
 	/** Tag for debugging */
 	private static final String LOG_TAG = "Eshotroid_QueryKentKartBalanceTask";
@@ -176,12 +183,12 @@ public class QueryKentKartBalanceTask extends AsyncTask<Void, Void, Void>
 		ArrayList<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
 		
 		// Set request information
-		httpPost.setHeader("User-Agent", USER_AGENT);
-		parameters.add(new BasicNameValuePair("querysubmit", "1"));
+		httpPost.setHeader("User-Agent", USER_AGENTS[new Random().nextInt(USER_AGENTS.length)]);
+		parameters.add(new BasicNameValuePair("func", "bs"));
 		parameters.add(new BasicNameValuePair("myregion", "006")); // 006 is for İzmir
-		parameters.add(new BasicNameValuePair("aliasno1", myKentKart.getAliasNo1()));
-		parameters.add(new BasicNameValuePair("aliasno2", myKentKart.getAliasNo2()));
-		parameters.add(new BasicNameValuePair("aliasno3", myKentKart.getAliasNo3()));
+		parameters.add(new BasicNameValuePair("myregiontitle", "IZMIR"));
+		parameters.add(new BasicNameValuePair("val", myKentKart.getAliasNo1() + myKentKart.getAliasNo2()));
+		parameters.add(new BasicNameValuePair("fbUserId", "1344750135"));
 		httpPost.setEntity(new UrlEncodedFormEntity(parameters));
 		
 		// Execute the request

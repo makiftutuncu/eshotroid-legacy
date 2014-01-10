@@ -49,7 +49,6 @@ public class QueryKentKartBalanceTask extends AsyncTask<Void, Void, Void>
 		"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36",
 		"Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:24.0) Gecko/20100101 Firefox/24.0 Waterfox/24.0",
 		"Mozilla/5.0 (Linux; U; Android 4.0.3; de-ch; HTC Sensation Build/IML74K) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30"
-		
 	};
 	
 	/** Tag for debugging */
@@ -188,7 +187,6 @@ public class QueryKentKartBalanceTask extends AsyncTask<Void, Void, Void>
 		parameters.add(new BasicNameValuePair("myregion", "006")); // 006 is for İzmir
 		parameters.add(new BasicNameValuePair("myregiontitle", "IZMIR"));
 		parameters.add(new BasicNameValuePair("val", myKentKart.getAliasNo1() + myKentKart.getAliasNo2()));
-		parameters.add(new BasicNameValuePair("fbUserId", "1344750135"));
 		httpPost.setEntity(new UrlEncodedFormEntity(parameters));
 		
 		// Execute the request

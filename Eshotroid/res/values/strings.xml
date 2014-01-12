@@ -89,9 +89,14 @@
     <string name="kentKartBalance_balance">%1$s TL</string>
     <string name="kentKartBalance_balance_title">Card Balance</string>
     <string name="kentKartBalance_lastLoad">%2$s TL on %1$s</string>
+    <string name="kentKartBalance_lastLoad_onlyTime">On %1$s</string>
+    <string name="kentKartBalance_lastLoad_onlyAmount">%1$s TL</string>
     <string name="kentKartBalance_lastLoad_title">Last Load of Balance</string>
     <string name="kentKartBalance_lastUse">%2$s TL on %1$s</string>
+    <string name="kentKartBalance_lastUse_onlyTime">On %1$s</string>
+    <string name="kentKartBalance_lastUse_onlyAmount">%1$s TL</string>
     <string name="kentKartBalance_lastUse_title">Last Use of the Card</string>
+    <string name="kentKartBalance_unknown">Unknown</string>
     
     <string name="error_noConnection">No internet connection!</string>
     <string name="error_parse">An error occurred while processing the downloaded data!</string>
@@ -109,7 +114,7 @@
     <string name="info_kentKart_refreshing">Querying %1$s\u2026</string>
     <string name="info_kentKart_saved">%1$s is saved!</string>
     <string name="info_kentKart_deleted">%1$s is deleted!</string>
-    <string name="info_kentKart_invalid">Query failed! Make sure the Kent Kart number you entered is valid.</string>
+    <string name="info_kentKart_invalid">Query failed! Make sure the Kent Kart number you entered is valid. If you are sure it is valid, you might have passed daily query limit.</string>
     
     <string name="info_selectedTimePassed">The time you selected is passed.</string>
     <string name="info_remainingTime">There is/are %2$d hour(s) and %3$d minute(s) to the bus at %1$s.</string>

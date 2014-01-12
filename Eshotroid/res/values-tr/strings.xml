@@ -87,9 +87,14 @@
     <string name="kentKartBalance_balance">%1$s TL</string>
     <string name="kentKartBalance_balance_title">Kart Bakiyesi</string>
     <string name="kentKartBalance_lastLoad">%1$s tarihinde %2$s TL</string>
+    <string name="kentKartBalance_lastLoad_onlyTime">%1$s tarihinde</string>
+    <string name="kentKartBalance_lastLoad_onlyAmount">%1$s TL</string>
     <string name="kentKartBalance_lastLoad_title">Yapılan En Son Yükleme</string>
     <string name="kentKartBalance_lastUse">%1$s tarihinde %2$s TL</string>
+    <string name="kentKartBalance_lastUse_onlyTime">%1$s tarihinde</string>
+    <string name="kentKartBalance_lastUse_onlyAmount">%1$s TL</string>
     <string name="kentKartBalance_lastUse_title">Kartın En Son Kullanımı</string>
+    <string name="kentKartBalance_unknown">Bilinmiyor</string>
     
     <string name="error_noConnection">İnternet bağlantısı yok!</string>
     <string name="error_parse">İndirilen veri işlenirken bir hata oluştu!</string>
@@ -107,7 +112,7 @@
     <string name="info_kentKart_refreshing">%1$s sorgulanıyor\u2026</string>
     <string name="info_kentKart_saved">%1$s kaydedildi!</string>
     <string name="info_kentKart_deleted">%1$s silindi!</string>
-    <string name="info_kentKart_invalid">Sorgulama başarısız! Girdiğiniz Kent Kart numarasının doğru olduğundan emin olun.</string>
+    <string name="info_kentKart_invalid">Sorgulama başarısız! Girdiğiniz Kent Kart numarasının doğru olduğundan emin olun. Eğer doğru girdiğinizden eminseniz günlük sorgulama sınırını aşmış olabilirsiniz.</string>
     
     <string name="info_selectedTimePassed">Seçtiğiniz otobüsün saati geçmiş.</string>
     <string name="info_remainingTime">%1$s otobüsüne %2$d saat %3$d dakika zaman var.</string>

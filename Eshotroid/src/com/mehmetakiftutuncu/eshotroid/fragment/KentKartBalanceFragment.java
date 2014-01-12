@@ -91,9 +91,40 @@ public class KentKartBalanceFragment extends Fragment
 		showOrHideView(query, false);
 		
 		// Set result texts
-		balance.setText(getString(R.string.kentKartBalance_balance, result.getBalance()));
-		lastLoad.setText(getString(R.string.kentKartBalance_lastLoad, result.getLastLoadTime(), result.getLastLoadAmount()));
-		lastUse.setText(getString(R.string.kentKartBalance_lastUse, result.getLastUseTime(), result.getLastUseAmount()));
+		if(result.getBalance() != null)
+			balance.setText(getString(R.string.kentKartBalance_balance, result.getBalance()));
+		else
+			balance.setText(getString(R.string.kentKartBalance_unknown));
+		
+		if(result.getLastLoadTime() != null)
+		{
+			if(result.getLastLoadAmount() != null)
+				lastLoad.setText(getString(R.string.kentKartBalance_lastLoad, result.getLastLoadTime(), result.getLastLoadAmount()));
+			else
+				lastLoad.setText(getString(R.string.kentKartBalance_lastLoad_onlyTime, result.getLastLoadTime()));
+		}
+		else
+		{
+			if(result.getLastLoadAmount() != null)
+				lastLoad.setText(getString(R.string.kentKartBalance_lastLoad_onlyAmount, result.getLastLoadAmount()));
+			else
+				lastLoad.setText(getString(R.string.kentKartBalance_unknown));
+		}
+		
+		if(result.getLastUseTime() != null)
+		{
+			if(result.getLastUseAmount() != null)
+				lastUse.setText(getString(R.string.kentKartBalance_lastUse, result.getLastUseTime(), result.getLastUseAmount()));
+			else
+				lastUse.setText(getString(R.string.kentKartBalance_lastUse_onlyTime, result.getLastUseTime()));
+		}
+		else
+		{
+			if(result.getLastUseAmount() != null)
+				lastUse.setText(getString(R.string.kentKartBalance_lastUse_onlyAmount, result.getLastUseAmount()));
+			else
+				lastUse.setText(getString(R.string.kentKartBalance_unknown));
+		}
 	}
 	
 	public void setQuerying(boolean isQuerying)

@@ -268,11 +268,27 @@ public class Parser
     		SimpleDateFormat resultFormatter = new SimpleDateFormat(KENT_KART_TIME_FORMAT_RESULT, Locale.getDefault());
     		
     		// Define result attributes
-    		String balance = result.balanceresult;
-    		String lastLoadTime = resultFormatter.format(responseFormatter.parse(result.chargeresult));
-    		String lastLoadAmount = result.chargeAmt;
-    		String lastUseTime = resultFormatter.format(responseFormatter.parse(result.usageresult));
-    		String lastUseAmount = result.usageAmt;
+    		String balance = result.balanceresult.equals("0") || result.balanceresult.equals("") ? null : result.balanceresult;
+    		String lastLoadTime = null;
+			try
+			{
+				lastLoadTime = resultFormatter.format(responseFormatter.parse(result.chargeresult));
+			}
+			catch(Exception e)
+			{
+				Log.e(LOG_TAG, "Error occurred while parsing last load time!", e);
+			}
+    		String lastLoadAmount = result.chargeAmt.equals("0") || result.chargeAmt.equals("") ? null : result.chargeAmt;
+    		String lastUseTime = null;
+			try
+			{
+				lastUseTime = resultFormatter.format(responseFormatter.parse(result.usageresult));
+			}
+			catch(Exception e)
+			{
+				Log.e(LOG_TAG, "Error occurred while parsing last use time!", e);
+			}
+    		String lastUseAmount = result.usageAmt.equals("0") || result.usageAmt.equals("") ? null : result.usageAmt;
             
             // Generate and return resulting object
             return new KentKartBalanceQueryResult(balance, lastLoadTime,
